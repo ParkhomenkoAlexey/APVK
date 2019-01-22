@@ -53,8 +53,8 @@ final class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
         })
     }
     
-    
     // MARK: - VKSdkDelegate
+    
     
     // Уведомляет о том, что авторизация завершена, и возвращает результат авторизации с новым токеном или ошибкой.
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
