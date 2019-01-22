@@ -30,8 +30,12 @@ final class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
         vkSdk.uiDelegate = self
     }
     
+    var token: String? {
+        return VKSdk.accessToken()?.accessToken
+    }
+    
     func wakeUpSession() {
-        let scope = ["offline"]
+        let scope = ["offline", "wall", "friends"]
         
         // Этот метод пытается извлечь токен из хранилища и проверить, разрешено ли приложению использовать токен доступа пользователя.
         VKSdk.wakeUpSession(scope, complete: { [delegate] state, error in

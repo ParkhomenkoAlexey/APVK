@@ -14,10 +14,10 @@ class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // присваиваем authService которую объявливи выше authService которую объявливи в AppDelegate
+        // присваиваем authService которую объявиви выше authService которую объявливи в AppDelegate
         // зачем? 
         authService = AppDelegate.shared().authService
-        authService.wakeUpSession()
+        //authService.wakeUpSession()
 
       
     }
