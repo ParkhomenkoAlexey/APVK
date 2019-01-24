@@ -38,7 +38,7 @@ final class NetworkService {
                                                failure: @escaping () -> Void) {
         
         guard let token = authService.token else { return }
-        let session = URLSession.init(configuration: .default)
+        let session = URLSession(configuration: .default)
         
         // ["filters": "post,photo,photo_tag,wall_photo"] + token + version
         var paramsWithTokenAndVerion = params

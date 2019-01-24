@@ -46,7 +46,7 @@ final class FeedPresenter: FeedPresenterLogic {
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormatter.string(from: date)
         
-        return Feed.ViewModel.Cell.init(iconUrlString: "",
+        return Feed.ViewModel.Cell.init(iconUrlString: profile?.photo ?? "Noname",
                                         name: profile?.name ?? "Noname",
                                         date: dateTitle,
                                         text: feedItem.text,
