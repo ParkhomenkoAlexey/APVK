@@ -38,7 +38,9 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     private func assemble() {
         // за что отвечает presenter?
         // в качестве входного параметра принимает FeedResponse и возвращает ячейки с готовыми постами
-        let presenter = FeedPresenter(viewController: self)
+        let screenWidth = min(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        let feedCellLayoutCalculator = FeedCellLayoutCalculator(screenWidth: screenWidth)
+        let presenter = FeedPresenter(viewController: self, cellLayoutCalculator: feedCellLayoutCalculator)
         let authService = AppDelegate.shared().authService!
         let networkService = NetworkService(authService: authService)
         // инициилизируем interactor чтобы в методе viewDidLoad() сделать interactor.getFeed()
@@ -67,7 +69,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 212
+        return 300
     }
     
 }

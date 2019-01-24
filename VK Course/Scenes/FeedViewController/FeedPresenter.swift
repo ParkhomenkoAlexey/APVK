@@ -19,9 +19,11 @@ final class FeedPresenter: FeedPresenterLogic {
     
     private unowned let viewController: UIViewController & FeedDisplayLogic
     private let dateFormatter: DateFormatter
+    private let cellLayoutCalculator: FeedCellLayoutCalculatorProtocol
     
-    init(viewController: UIViewController & FeedDisplayLogic) {
+    init(viewController: UIViewController & FeedDisplayLogic, cellLayoutCalculator: FeedCellLayoutCalculatorProtocol) {
         self.viewController = viewController
+        self.cellLayoutCalculator = cellLayoutCalculator
         
         dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ru_RU")
@@ -49,6 +51,7 @@ final class FeedPresenter: FeedPresenterLogic {
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormatter.string(from: date)
         
+        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, photoAttachment: photoAttachemnt)
         
         return Feed.ViewModel.Cell.init(iconUrlString: profile?.photo ?? "Noname",
                                         name: profile?.name ?? "Noname",
@@ -59,7 +62,8 @@ final class FeedPresenter: FeedPresenterLogic {
                                         comments: formattedCounter(feedItem.comments?.count),
                                         shares: formattedCounter(feedItem.reposts?.count),
                                         views: formattedCounter(feedItem.views?.count),
-                                        photoAttachement: photoAttachemnt)
+                                        photoAttachement: photoAttachemnt,
+                                        sizes: sizes)
     }
     
     // видимо поиск профиля или группы по id

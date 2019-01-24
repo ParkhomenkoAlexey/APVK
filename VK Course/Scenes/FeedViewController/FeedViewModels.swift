@@ -14,7 +14,7 @@ enum Feed {
     // у ленты новостей есть модель новости (или поста)
     struct ViewModel {
         struct Cell: FeedCellViewModel {
-
+            
             let iconUrlString: String
             let name: String
             let date: String
@@ -25,6 +25,7 @@ enum Feed {
             var shares: String?
             var views: String?
             var photoAttachement: FeedCellPhotoAttachmentViewModel?
+            var sizes: FeedCellSizes
         }
         
         struct FeedCellPhotoAttachment: FeedCellPhotoAttachmentViewModel {

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F04C2A8021F9DDEA00E1B1C8 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */; };
+		F04C2A8921FA0FF200E1B1C8 /* String + Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */; };
+		F04C2A8B21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */; };
 		F0DA73CB21F784CF00BA4CCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA73CA21F784CF00BA4CCD /* AppDelegate.swift */; };
 		F0DA73D221F784D000BA4CCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0DA73D121F784D000BA4CCD /* Assets.xcassets */; };
 		F0DA73D521F784D000BA4CCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0DA73D321F784D000BA4CCD /* LaunchScreen.storyboard */; };
@@ -30,6 +32,8 @@
 
 /* Begin PBXFileReference section */
 		F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
+		F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Helpers.swift"; sourceTree = "<group>"; };
+		F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellLayoutCalculator.swift; sourceTree = "<group>"; };
 		F0DA73C721F784CF00BA4CCD /* VK Course.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VK Course.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0DA73CA21F784CF00BA4CCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0DA73D121F784D000BA4CCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				F0DA73EC21F790D700BA4CCD /* UIViewController + Storyboard.swift */,
+				F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */,
 				F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */,
 			);
 			path = Helpers;
@@ -165,8 +170,9 @@
 		F0DA740821F87E4100BA4CCD /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				F0DA740421F87D2500BA4CCD /* FeedCell.swift */,
 				F0DA740621F87D4C00BA4CCD /* FeedCell.xib */,
+				F0DA740421F87D2500BA4CCD /* FeedCell.swift */,
+				F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -273,7 +279,9 @@
 				F0DA740A21F87EBE00BA4CCD /* FeedViewModels.swift in Sources */,
 				F0DA740C21F8813C00BA4CCD /* FeedPresenter.swift in Sources */,
 				F0DA73ED21F790D700BA4CCD /* UIViewController + Storyboard.swift in Sources */,
+				F04C2A8B21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift in Sources */,
 				F0DA73F021F795C000BA4CCD /* FeedViewController.swift in Sources */,
+				F04C2A8921FA0FF200E1B1C8 /* String + Helpers.swift in Sources */,
 				F0DA73E521F7891800BA4CCD /* AuthService.swift in Sources */,
 				F0DA73F821F7A37F00BA4CCD /* API.swift in Sources */,
 				F0DA73CB21F784CF00BA4CCD /* AppDelegate.swift in Sources */,

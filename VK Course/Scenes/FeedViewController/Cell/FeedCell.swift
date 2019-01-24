@@ -19,6 +19,14 @@ protocol FeedCellViewModel {
     var shares: String? { get }
     var views: String? { get }
     var photoAttachement: FeedCellPhotoAttachmentViewModel? { get }
+    var sizes: FeedCellSizes { get }
+}
+
+protocol FeedCellSizes {
+    var postLabelFrame: CGRect { get }
+    var attachmentFrame: CGRect { get }
+    var counterPlaceholderFrame: CGRect { get }
+    var totalHeight: CGFloat { get }
 }
 
 protocol FeedCellPhotoAttachmentViewModel {
@@ -37,12 +45,14 @@ final class FeedCell: UITableViewCell {
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var postLabel: UILabel!
     @IBOutlet private var moreTextButton: UIButton!
-    @IBOutlet weak var photoImageView: WebImageView!
+    @IBOutlet private var photoImageView: WebImageView!
     @IBOutlet private var likesLabel: UILabel!
     @IBOutlet private var commentsLabel: UILabel!
     @IBOutlet private var sharesLabel: UILabel!
     @IBOutlet private var viewsLabel: UILabel!
+    @IBOutlet private var countersPlaceholder: UIView!
     
+    // зачем?
     // Готовит ячейку многократного использования для повторного использования делегатом табличного представления.
     override func prepareForReuse() {
         iconImageView.set(imageUrl: nil)
@@ -76,7 +86,14 @@ final class FeedCell: UITableViewCell {
         sharesLabel.text = viewModel.shares
         viewsLabel.text = viewModel.views
         
-        // если
+        // кроме заполнения информацией ячеек мы также
+        // устанавливаем размеры объектов каждой ячейки
+        postLabel.frame = viewModel.sizes.postLabelFrame
+        photoImageView.frame = viewModel.sizes.attachmentFrame
+        countersPlaceholder.frame = viewModel.sizes.counterPlaceholderFrame
+        
+        
+        // если у нас имеются фотографии в после
         if let photoAttachment = viewModel.photoAttachement {
             photoImageView.set(imageUrl: photoAttachment.photoUrlString)
             photoImageView.isHidden = false
@@ -84,5 +101,7 @@ final class FeedCell: UITableViewCell {
             photoImageView.isHidden = true
         }
     }
+    
+    // MARK: - Sizes calculation
     
 }
