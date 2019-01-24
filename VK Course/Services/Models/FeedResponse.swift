@@ -32,6 +32,10 @@ struct FeedItem: Decodable {
     
 }
 
+struct CountableItem: Decodable {
+    let count: Int
+}
+
 struct Attachment: Decodable {
     let photo: Photo?
 }
@@ -42,9 +46,7 @@ struct Photo: Decodable {
     let width: Float
 }
 
-struct CountableItem: Decodable {
-    let count: Int
-}
+
 
 protocol ProfileRepresentable {
     var id: Int { get }

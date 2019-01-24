@@ -69,7 +69,8 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 300
+        let cellViewModel = viewModel.cells[indexPath.row]
+        return cellViewModel.sizes.totalHeight
     }
     
 }
