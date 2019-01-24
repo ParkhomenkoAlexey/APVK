@@ -22,7 +22,7 @@ final class NetworkService {
     // функция, которая вытаскивает из инета всю информацию о постах в формате JSON
     func getFeed(completion: @escaping (FeedResponse) -> Void, failure: @escaping () -> Void) {
         
-        let params = ["filters": "post,photo,photo_tag,wall_photo"]
+        let params = ["filters": "post,photo"]
         
         
         // что то я не могу понять где у меня фигурируют параметры из файла FeedResponse
@@ -58,6 +58,8 @@ final class NetworkService {
             if let data = data {
                 do {
                     let decoder = JSONDecoder()
+                    let json = try? JSONSerialization.jsonObject(with: data, options: [])
+                    //print("json \(json)")
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let decodedResponse = try decoder.decode(T.self, from: data)
                     DispatchQueue.main.async {

@@ -9,19 +9,23 @@
 import Foundation
 
 // зачем?
+// Энум ленты новостей
 enum Feed {
+    // у ленты новостей есть модель новости (или поста)
     struct ViewModel {
         struct Cell: FeedCellViewModel {
+    
             let iconUrlString: String
             let name: String
             let date: String
             let text: String?
             let moreTextTitle: String?
-            let likes: String
-            let comments: String
-            let shares: String
-            let views: String
+            var likes: String?
+            var comments: String?
+            var shares: String?
+            var views: String?
         }
+        // и у ленты новостей есть собственно ячейки с этими новостями
         let cells: [Cell]
     }
 }

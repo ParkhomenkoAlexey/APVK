@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthServiceDelegate {
     
     
     // метод нужен для того, чтобы достучаться из файла AuthViewController конкретно в authService которая находится в этом файле
+    // паттерн проектирования Singleton
     static func shared() -> AppDelegate {
         return UIApplication.shared.delegate as! AppDelegate
     }
