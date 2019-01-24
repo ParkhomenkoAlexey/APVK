@@ -26,7 +26,7 @@ final class NetworkService {
         
         
         // что то я не могу понять где у меня фигурируют параметры из файла FeedResponse
-        sendDataRequest(path: API.newsFeed, params: params, completion: { (feed: Feed) -> Void in
+        sendDataRequest(path: API.newsFeed, params: params, completion: { (feed: FeedResponseWrapped) -> Void in
             completion(feed.response)
         }, failure: failure)
     }

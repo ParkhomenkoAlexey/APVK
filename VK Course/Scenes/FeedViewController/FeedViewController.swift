@@ -8,23 +8,63 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
+protocol FeedDisplayLogic: class {
+    func displayViewModel(_ viewModel:Feed.ViewModel)
+}
+
+class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegate, UITableViewDataSource {
     
-    private var networkService: NetworkService!
+    
+    
+    private var interactor: FeedBusinessLogic!
+    private var viewModel = Feed.ViewModel.init(cells: [])
+    
+    // в оригинале private
+    @IBOutlet weak var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let authService = AppDelegate.shared().authService!
-        networkService = NetworkService(authService: authService)
-        networkService.getFeed(completion: { (feedResponse) in
-            
-        }, failure: {
-            
-        })
-        
+        assemble()
+        table.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: FeedCell.reuseId)
+        // достаем всю инфу, уже все в ячейках
+        interactor.getFeed()
     }
     
+    private func assemble() {
+        // за что отвечает presenter?
+        // в качестве входного параметра принимает FeedResponse и возвращает ячейки с готовыми постами
+        let presenter = FeedPresenter(viewController: self)
+        let authService = AppDelegate.shared().authService!
+        let networkService = NetworkService(authService: authService)
+        // инициилизируем interactor чтобы в методе viewDidLoad() сделать interactor.getFeed()
+        interactor = FeedInteractor(presenter: presenter, networkService: networkService)
+    }
+    
+    // MARK: - FeedDisplayLogic
+    
+    // метод вызывается для обновления пользовательского интерфейса
+    func displayViewModel(_ viewModel: Feed.ViewModel) {
+        self.viewModel = viewModel
+        table.reloadData()
+    }
+    
+    // MARK: - UITableViewDelegate & UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.cells.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
+        let cellViewModel = viewModel.cells[indexPath.row]
+        cell.set(viewModel: cellViewModel)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 212
+    }
     
 }
 
