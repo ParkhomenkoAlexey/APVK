@@ -13,10 +13,14 @@ final class WebImageView: UIImageView {
     private var currentUrlString: String?
     private let urlCache = URLCache.shared
     
-    func set(imageUrl: String) {
-        guard let url = URL(string: imageUrl) else { return }
+    func set(imageUrl: String?) {
         
         currentUrlString = imageUrl
+        
+        guard let imageUrl = imageUrl, let url = URL(string: imageUrl) else {
+            self.image = nil
+            return
+        }
         
         // URLCache.shared.cachedResponse - Возвращает кэшированный ответ URL в кеше для указанного запроса URL.
         if let cachedResponse = URLCache.shared.cachedResponse(for: URLRequest(url: url)) {

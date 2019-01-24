@@ -18,6 +18,13 @@ protocol FeedCellViewModel {
     var comments: String? { get }
     var shares: String? { get }
     var views: String? { get }
+    var photoAttachement: FeedCellPhotoAttachmentViewModel? { get }
+}
+
+protocol FeedCellPhotoAttachmentViewModel {
+    var photoUrlString: String? { get }
+    var width: Float { get }
+    var height: Float { get }
 }
 
 final class FeedCell: UITableViewCell {
@@ -29,10 +36,23 @@ final class FeedCell: UITableViewCell {
     @IBOutlet private var dateLabel: UILabel!
     @IBOutlet private var postLabel: UILabel!
     @IBOutlet private var moreTextButton: UIButton!
+    @IBOutlet weak var photoImageView: WebImageView!
     @IBOutlet private var likesLabel: UILabel!
     @IBOutlet private var commentsLabel: UILabel!
     @IBOutlet private var sharesLabel: UILabel!
     @IBOutlet private var viewsLabel: UILabel!
+    
+    // Готовит ячейку многократного использования для повторного использования делегатом табличного представления.
+    override func prepareForReuse() {
+        iconImageView.set(imageUrl: nil)
+        photoImageView.set(imageUrl: nil)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        iconImageView.layer.cornerRadius = iconImageView.frame.width/2
+        iconImageView.clipsToBounds = true
+    }
     
     func set(viewModel: FeedCellViewModel) {
         iconImageView.set(imageUrl: viewModel.iconUrlString)
@@ -43,6 +63,14 @@ final class FeedCell: UITableViewCell {
         commentsLabel.text = viewModel.comments
         sharesLabel.text = viewModel.shares
         viewsLabel.text = viewModel.views
+        
+        // если
+        if let photoAttachment = viewModel.photoAttachement {
+            photoImageView.set(imageUrl: photoAttachment.photoUrlString)
+            photoImageView.isHidden = false
+        } else {
+            photoImageView.isHidden = true
+        }
     }
     
 }

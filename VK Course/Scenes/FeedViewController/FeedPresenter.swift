@@ -43,8 +43,12 @@ final class FeedPresenter: FeedPresenterLogic {
     private func cellViewModel(from feedItem: FeedItem, profiles: [Profile], groups: [Group]) -> Feed.ViewModel.Cell {
         
         let profile = self.profile(for: feedItem.sourceId, profiles: profiles, groups: groups)
+        
+        let photoAttachemnt = self.photoAttachment(feedItem: feedItem)
+        
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormatter.string(from: date)
+        
         
         return Feed.ViewModel.Cell.init(iconUrlString: profile?.photo ?? "Noname",
                                         name: profile?.name ?? "Noname",
@@ -54,7 +58,8 @@ final class FeedPresenter: FeedPresenterLogic {
                                         likes: formattedCounter(feedItem.likes?.count),
                                         comments: formattedCounter(feedItem.comments?.count),
                                         shares: formattedCounter(feedItem.reposts?.count),
-                                        views: formattedCounter(feedItem.views?.count))
+                                        views: formattedCounter(feedItem.views?.count),
+                                        photoAttachement: photoAttachemnt)
     }
     
     // видимо поиск профиля или группы по id
@@ -71,6 +76,19 @@ final class FeedPresenter: FeedPresenterLogic {
     private func formattedCounter(_ counter: Int?) -> String? {
         guard let counter = counter, counter > 0 else { return nil }
         return String(counter)
+    }
+    
+    private func photoAttachment(feedItem: FeedItem) -> Feed.ViewModel.FeedCellPhotoAttachment? {
+        // .compactMap - Возвращает массив, содержащий ненулевые результаты вызова данного преобразования для каждого элемента этой последовательности.
+        guard let photos = feedItem.attachments?.compactMap({ (attachment) in
+            attachment.photo
+        }), let firstPhoto = photos.first else {
+            return nil
+        }
+        
+        return Feed.ViewModel.FeedCellPhotoAttachment.init(photoUrlString: firstPhoto.srcBig,
+                                                           width: firstPhoto.width,
+                                                           height: firstPhoto.height)
     }
     
 }
