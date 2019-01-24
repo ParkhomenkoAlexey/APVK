@@ -47,7 +47,7 @@ final class NetworkService {
         
         // создаем URL
         let url = self.url(from: path, params: paramsWithTokenAndVerion)
-        print(url)
+        //print(url)
         
         // и при таком запросе с такими параметрами ["filters": "post,photo,photo_tag,wall_photo"] + token + version я на выходе получу:
         //

@@ -27,7 +27,11 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         
         assemble()
         table.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: FeedCell.reuseId)
-        // достаем всю инфу, уже все в ячейках
+        table.separatorStyle = .none
+        table.backgroundColor = .clear
+        view.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+        
+        // достаем всю инфу, она уже вся в ячейках
         interactor.getFeed()
     }
     

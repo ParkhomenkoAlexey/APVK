@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthServiceDelegate {
     }
     
     func authServiceDidSignIn() {
-        print(#function)
+        //print(#function)
         
         if !(window?.rootViewController is FeedViewController) {
 

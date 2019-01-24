@@ -31,6 +31,7 @@ final class FeedCell: UITableViewCell {
     
     static let reuseId = "FeedCell"
     
+    @IBOutlet private var cardView: UIView!
     @IBOutlet private var iconImageView: WebImageView!
     @IBOutlet private var nameLabel: UILabel!
     @IBOutlet private var dateLabel: UILabel!
@@ -50,8 +51,19 @@ final class FeedCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        iconImageView.layer.cornerRadius = iconImageView.frame.width/2
+        
+        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.clipsToBounds = true
+        
+        cardView.layer.cornerRadius = 10
+        cardView.clipsToBounds = true
+        
+        backgroundColor = .clear
+        selectionStyle = .none
+        
+        for item in [likesLabel,commentsLabel,sharesLabel,viewsLabel] {
+            item?.lineBreakMode = .byClipping
+        }
     }
     
     func set(viewModel: FeedCellViewModel) {
