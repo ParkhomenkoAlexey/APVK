@@ -17,7 +17,7 @@ class AuthViewController: UIViewController {
         // присваиваем authService которую объявиви выше authService которую объявливи в AppDelegate
         // зачем? 
         authService = AppDelegate.shared().authService
-        //authService.wakeUpSession()
+        authService.wakeUpSession()
 
       
     }

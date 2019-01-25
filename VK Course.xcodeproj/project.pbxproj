@@ -10,6 +10,7 @@
 		F04C2A8021F9DDEA00E1B1C8 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */; };
 		F04C2A8921FA0FF200E1B1C8 /* String + Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */; };
 		F04C2A8B21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */; };
+		F0C843AD21FAFDE000AAB79E /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0C843AC21FAFDE000AAB79E /* FeedCell.xib */; };
 		F0DA73CB21F784CF00BA4CCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA73CA21F784CF00BA4CCD /* AppDelegate.swift */; };
 		F0DA73D221F784D000BA4CCD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0DA73D121F784D000BA4CCD /* Assets.xcassets */; };
 		F0DA73D521F784D000BA4CCD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0DA73D321F784D000BA4CCD /* LaunchScreen.storyboard */; };
@@ -24,7 +25,6 @@
 		F0DA73FA21F7A50B00BA4CCD /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA73F921F7A50B00BA4CCD /* NetworkService.swift */; };
 		F0DA73FC21F7A56F00BA4CCD /* FeedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA73FB21F7A56F00BA4CCD /* FeedResponse.swift */; };
 		F0DA740521F87D2500BA4CCD /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA740421F87D2500BA4CCD /* FeedCell.swift */; };
-		F0DA740721F87D4C00BA4CCD /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0DA740621F87D4C00BA4CCD /* FeedCell.xib */; };
 		F0DA740A21F87EBE00BA4CCD /* FeedViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA740921F87EBE00BA4CCD /* FeedViewModels.swift */; };
 		F0DA740C21F8813C00BA4CCD /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA740B21F8813C00BA4CCD /* FeedPresenter.swift */; };
 		F0DA740E21F885E000BA4CCD /* FeedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA740D21F885E000BA4CCD /* FeedInteractor.swift */; };
@@ -34,6 +34,7 @@
 		F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Helpers.swift"; sourceTree = "<group>"; };
 		F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellLayoutCalculator.swift; sourceTree = "<group>"; };
+		F0C843AC21FAFDE000AAB79E /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		F0DA73C721F784CF00BA4CCD /* VK Course.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VK Course.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0DA73CA21F784CF00BA4CCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0DA73D121F784D000BA4CCD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -50,7 +51,6 @@
 		F0DA73F921F7A50B00BA4CCD /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		F0DA73FB21F7A56F00BA4CCD /* FeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponse.swift; sourceTree = "<group>"; };
 		F0DA740421F87D2500BA4CCD /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
-		F0DA740621F87D4C00BA4CCD /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		F0DA740921F87EBE00BA4CCD /* FeedViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModels.swift; sourceTree = "<group>"; };
 		F0DA740B21F8813C00BA4CCD /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		F0DA740D21F885E000BA4CCD /* FeedInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedInteractor.swift; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		F0DA740821F87E4100BA4CCD /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				F0DA740621F87D4C00BA4CCD /* FeedCell.xib */,
+				F0C843AC21FAFDE000AAB79E /* FeedCell.xib */,
 				F0DA740421F87D2500BA4CCD /* FeedCell.swift */,
 				F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */,
 			);
@@ -240,7 +240,7 @@
 				F0DA73EB21F78F3700BA4CCD /* AuthViewController.storyboard in Resources */,
 				F0DA73D221F784D000BA4CCD /* Assets.xcassets in Resources */,
 				F0DA73F221F795E700BA4CCD /* FeedViewController.storyboard in Resources */,
-				F0DA740721F87D4C00BA4CCD /* FeedCell.xib in Resources */,
+				F0C843AD21FAFDE000AAB79E /* FeedCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
