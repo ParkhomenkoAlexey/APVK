@@ -26,7 +26,8 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         super.viewDidLoad()
         
         assemble()
-        table.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: FeedCell.reuseId)
+        //table.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: FeedCell.reuseId)
+        table.register(FeedCodeCell.self, forCellReuseIdentifier: FeedCodeCell.reuseId)
         table.separatorStyle = .none
         table.backgroundColor = .clear
         view.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
@@ -62,7 +63,8 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
+        //let cell = tableView.dequeueReusableCell(withIdentifier: FeedCell.reuseId, for: indexPath) as! FeedCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: FeedCodeCell.reuseId, for: indexPath) as! FeedCodeCell
         let cellViewModel = viewModel.cells[indexPath.row]
         cell.set(viewModel: cellViewModel)
         return cell
