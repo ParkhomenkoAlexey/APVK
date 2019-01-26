@@ -8,24 +8,40 @@
 
 import UIKit
 
+protocol FeedCellViewModel {
+    var iconUrlString: String { get }
+    var name: String { get }
+    var date: String { get }
+    var text: String? { get }
+    var moreTextTitle: String? { get }
+    var likes: String? { get }
+    var comments: String? { get }
+    var shares: String? { get }
+    var views: String? { get }
+    var photoAttachement: FeedCellPhotoAttachmentViewModel? { get }
+    var sizes: FeedCellSizes { get }
+}
 
+protocol FeedCellSizes {
+    var postLabelFrame: CGRect { get }
+    var attachmentFrame: CGRect { get }
+    var counterPlaceholderFrame: CGRect { get }
+    var totalHeight: CGFloat { get }
+
+}
+
+protocol FeedCellPhotoAttachmentViewModel {
+    var photoUrlString: String? { get }
+    var width: Float { get }
+    var height: Float { get }
+}
 
 class FeedCodeCell: UITableViewCell {
     
     static let reuseId = "FeedCodeCell"
 
     // параметры элементов в ячейке которые динамически никак не изменяются в зависимости от контента
-    struct Constants {
-        static let cardInsets = UIEdgeInsets(top: 0, left: 8, bottom: 12, right: 8)
-        static let postLabelFont = UIFont.systemFont(ofSize: 15)
-        static let topViewHeight: CGFloat = 36
-        static let countersPlaceholderHeight: CGFloat = 44
-        
-        static let countersPlaceholderViewWidth: CGFloat = 80
-        static let countersPlaceholderViewHeight: CGFloat = 44
-        
-        static let countersPlaceholderViewsIconsSize: CGFloat = 24
-    }
+    
     
     // хз куда ее девать
     let moreTextButton: UIButton = {
@@ -197,7 +213,8 @@ class FeedCodeCell: UITableViewCell {
         overlayFourthLayerOnСountersPlaceholderViews() // червертый слой на вьюшки countersPlaceholder
         
         // про это надо отдельно будет рассказать в курсе
-        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2 // не работает (по понятным причинам)
+        //iconImageView.layer.cornerRadius = iconImageView.frame.width / 2 // не работает (по понятным причинам)
+        iconImageView.layer.cornerRadius = Constants.topViewHeight / 2
         iconImageView.clipsToBounds = true
         
         cardView.layer.cornerRadius = 10
@@ -206,6 +223,7 @@ class FeedCodeCell: UITableViewCell {
         backgroundColor = .clear
         selectionStyle = .none
     }
+    
     
     // зачем?
     // Готовит ячейку многократного использования для повторного использования делегатом табличного представления.
@@ -229,6 +247,8 @@ class FeedCodeCell: UITableViewCell {
         postLabel.frame = viewModel.sizes.postLabelFrame
         photoImageView.frame = viewModel.sizes.attachmentFrame
         countersPlaceholder.frame = viewModel.sizes.counterPlaceholderFrame
+        
+        
         
         
         // если у нас имеются фотографии в после

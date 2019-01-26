@@ -14,12 +14,6 @@ protocol FeedCellLayoutCalculatorProtocol {
 
 final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
     
-    struct Constants  {
-        static let cardInsets = UIEdgeInsets(top: 0, left: 8, bottom: 12, right: 8)
-        static let postLabelInsets = UIEdgeInsets(top: 58, left: 12, bottom: 10, right: 12) // почему 58? 10?
-        static let countersPlaceholderHeight: CGFloat = 44
-    }
-    
     struct Sizes: FeedCellSizes {
         var postLabelFrame: CGRect
         var attachmentFrame: CGRect
@@ -28,7 +22,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
     }
     
     private let screenWidth: CGFloat
-    private let systemFont15 = UIFont.systemFont(ofSize: 15)
+    //private let systemFont15 = UIFont.systemFont(ofSize: 15)
     
     init(screenWidth: CGFloat) {
         self.screenWidth = screenWidth
@@ -45,7 +39,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         if let text = postText {
             let width = fittingWidth - Constants.postLabelInsets.left - Constants.postLabelInsets.right
-            let height = text.height(fittingWidth: width, font: systemFont15)
+            let height = text.height(fittingWidth: width, font: Constants.postLabelFont)
             postLabelFrame.size = CGSize(width: width, height: height)
         }
         

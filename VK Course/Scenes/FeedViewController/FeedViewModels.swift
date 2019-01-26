@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // зачем?
 // Энум ленты новостей
@@ -36,4 +37,22 @@ enum Feed {
         // и у ленты новостей есть собственно ячейки с этими новостями
         let cells: [Cell]
     }
+}
+
+struct Constants {
+    static let cardInsets = UIEdgeInsets(top: 0, left: 8, bottom: 12, right: 8)
+    
+    static let postLabelFont = UIFont.systemFont(ofSize: 20)
+    static let topViewHeight: CGFloat = 60
+    static let countersPlaceholderHeight: CGFloat = 44
+    
+    static let countersPlaceholderViewWidth: CGFloat = 80
+    static let countersPlaceholderViewHeight: CGFloat = 44
+    
+    static let countersPlaceholderViewsIconsSize: CGFloat = 24
+    
+    // dynamic
+    
+    //58 - 36 = 22
+    static let postLabelInsets = UIEdgeInsets(top: 22 + Constants.topViewHeight, left: 12, bottom: 10, right: 12) // почему 58? 10?
 }

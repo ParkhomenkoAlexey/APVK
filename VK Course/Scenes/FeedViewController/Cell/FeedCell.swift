@@ -8,32 +8,7 @@
 
 import UIKit
 
-protocol FeedCellViewModel {
-    var iconUrlString: String { get }
-    var name: String { get }
-    var date: String { get }
-    var text: String? { get }
-    var moreTextTitle: String? { get }
-    var likes: String? { get }
-    var comments: String? { get }
-    var shares: String? { get }
-    var views: String? { get }
-    var photoAttachement: FeedCellPhotoAttachmentViewModel? { get }
-    var sizes: FeedCellSizes { get }
-}
 
-protocol FeedCellSizes {
-    var postLabelFrame: CGRect { get }
-    var attachmentFrame: CGRect { get }
-    var counterPlaceholderFrame: CGRect { get }
-    var totalHeight: CGFloat { get }
-}
-
-protocol FeedCellPhotoAttachmentViewModel {
-    var photoUrlString: String? { get }
-    var width: Float { get }
-    var height: Float { get }
-}
 
 final class FeedCell: UITableViewCell {
     
