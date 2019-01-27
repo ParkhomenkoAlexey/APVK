@@ -11,7 +11,7 @@ import UIKit
 // зачем?
 // отвечает за заполнение ячеек нужной информацией
 protocol FeedPresenterLogic: class {
-    func presentFeed(_ feedResponse: FeedResponse)
+    func presentFeed(_ feedResponse: FeedResponse, revealedPostIds: [Int])
 }
 
 final class FeedPresenter: FeedPresenterLogic {
@@ -30,10 +30,13 @@ final class FeedPresenter: FeedPresenterLogic {
         dateFormatter.dateFormat = "d MMM 'в' HH:mm"
     }
     
-    func presentFeed(_ feedResponse: FeedResponse) {
+    func presentFeed(_ feedResponse: FeedResponse, revealedPostIds: [Int]) {
         
+        // каждый FeedItem преобразуется исходя из функции cellViewModel
+        // заполняем массив ячеек
         let cells = feedResponse.items.map { (feedItem) in
-            cellViewModel(from: feedItem, profiles: feedResponse.profiles, groups: feedResponse.groups)
+            // с каждой FeedItem проделываем:
+            cellViewModel(from: feedItem, profiles: feedResponse.profiles, groups: feedResponse.groups, revealedPostsIds: revealedPostIds)
         }
         
         let viewModel = Feed.ViewModel.init(cells: cells)
@@ -42,7 +45,7 @@ final class FeedPresenter: FeedPresenterLogic {
     }
     
     // метод который заполняет содержимое ячеек РЕАЛЬНОЙ информацией
-    private func cellViewModel(from feedItem: FeedItem, profiles: [Profile], groups: [Group]) -> Feed.ViewModel.Cell {
+    private func cellViewModel(from feedItem: FeedItem, profiles: [Profile], groups: [Group], revealedPostsIds: [Int]) -> Feed.ViewModel.Cell {
         
         let profile = self.profile(for: feedItem.sourceId, profiles: profiles, groups: groups)
         
@@ -51,13 +54,22 @@ final class FeedPresenter: FeedPresenterLogic {
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormatter.string(from: date)
         
-        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, photoAttachment: photoAttachemnt)
         
-        return Feed.ViewModel.Cell.init(iconUrlString: profile?.photo ?? "",
+        // пробегаемся по всему массиву revealedPostsIds, если хоть один элемент этого массива равен feedItem.postId то isFullSized == true
+        print(revealedPostsIds)
+        let isFullSized = revealedPostsIds.contains { (postId) -> Bool in
+            return postId == feedItem.postId
+        }
+        // короткая запись
+        // let isFullSized = revealedPostsIds.contains(feedItem.postId)
+        
+        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, isFullSizedPost: isFullSized, photoAttachment: photoAttachemnt)
+        
+        return Feed.ViewModel.Cell.init(postId: feedItem.postId,
+                                        iconUrlString: profile?.photo ?? "",
                                         name: profile?.name ?? "Noname",
                                         date: dateTitle,
                                         text: feedItem.text,
-                                        moreTextTitle: "",
                                         likes: formattedCounter(feedItem.likes?.count),
                                         comments: formattedCounter(feedItem.comments?.count),
                                         shares: formattedCounter(feedItem.reposts?.count),
@@ -84,6 +96,7 @@ final class FeedPresenter: FeedPresenterLogic {
     
     private func photoAttachment(feedItem: FeedItem) -> Feed.ViewModel.FeedCellPhotoAttachment? {
         // .compactMap - Возвращает массив, содержащий ненулевые результаты вызова данного преобразования для каждого элемента этой последовательности.
+        // заполняем массив фотографий из поста
         guard let photos = feedItem.attachments?.compactMap({ (attachment) in
             attachment.photo
         }), let firstPhoto = photos.first else {

@@ -15,12 +15,12 @@ enum Feed {
     // у ленты новостей есть модель новости (или поста)
     struct ViewModel {
         struct Cell: FeedCellViewModel {
+            let postId: Int
             
             let iconUrlString: String
             let name: String
             let date: String
             let text: String?
-            let moreTextTitle: String?
             var likes: String?
             var comments: String?
             var shares: String?
@@ -42,8 +42,8 @@ enum Feed {
 struct Constants {
     static let cardInsets = UIEdgeInsets(top: 0, left: 8, bottom: 12, right: 8)
     
-    static let postLabelFont = UIFont.systemFont(ofSize: 20)
-    static let topViewHeight: CGFloat = 60
+    static let postLabelFont = UIFont.systemFont(ofSize: 15)
+    static let topViewHeight: CGFloat = 36
     static let countersPlaceholderHeight: CGFloat = 44
     
     static let countersPlaceholderViewWidth: CGFloat = 80
@@ -53,6 +53,12 @@ struct Constants {
     
     // dynamic
     
-    //58 - 36 = 22
     static let postLabelInsets = UIEdgeInsets(top: 22 + Constants.topViewHeight, left: 12, bottom: 10, right: 12) // почему 58? 10?
+    
+    // moreTextButton
+    static let minfiedPostLines = 6
+    static let minifiedPostLimitLines = 8
+    
+    static let moreTextButtonInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+    static let moreTextButtonSize = CGSize(width: 170, height: 30)
 }

@@ -12,9 +12,7 @@ protocol FeedDisplayLogic: class {
     func displayViewModel(_ viewModel:Feed.ViewModel)
 }
 
-class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegate, UITableViewDataSource {
-    
-    
+class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegate, UITableViewDataSource, FeedCellDelegate {
     
     private var interactor: FeedBusinessLogic!
     private var viewModel = Feed.ViewModel.init(cells: [])
@@ -67,12 +65,29 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         let cell = tableView.dequeueReusableCell(withIdentifier: FeedCodeCell.reuseId, for: indexPath) as! FeedCodeCell
         let cellViewModel = viewModel.cells[indexPath.row]
         cell.set(viewModel: cellViewModel)
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellViewModel = viewModel.cells[indexPath.row]
         return cellViewModel.sizes.totalHeight
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellViewModel = viewModel.cells[indexPath.row]
+        return cellViewModel.sizes.totalHeight
+    }
+    
+    // MARK: - FeedCellDelegate
+    
+    func revealPost(for cell: FeedCodeCell) {
+        guard let indexPath = table.indexPath(for: cell) else { return }
+        let cellViewModel = viewModel.cells[indexPath.row]
+        print(cellViewModel.postId)
+        
+        // при нажатии на кнопку мы достаем такое понятие как postId у нашей ячейки
+        interactor.revealPostPostId(for: cellViewModel.postId) // раскрывает пост по данному ID
     }
     
 }

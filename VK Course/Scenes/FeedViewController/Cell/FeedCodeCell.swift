@@ -13,7 +13,6 @@ protocol FeedCellViewModel {
     var name: String { get }
     var date: String { get }
     var text: String? { get }
-    var moreTextTitle: String? { get }
     var likes: String? { get }
     var comments: String? { get }
     var shares: String? { get }
@@ -27,6 +26,7 @@ protocol FeedCellSizes {
     var attachmentFrame: CGRect { get }
     var counterPlaceholderFrame: CGRect { get }
     var totalHeight: CGFloat { get }
+    var moreTextButtonFrame: CGRect { get }
 
 }
 
@@ -36,19 +36,25 @@ protocol FeedCellPhotoAttachmentViewModel {
     var height: Float { get }
 }
 
-class FeedCodeCell: UITableViewCell {
+protocol FeedCellDelegate: class {
+    func revealPost(for cell: FeedCodeCell)
+}
+
+final class FeedCodeCell: UITableViewCell {
     
     static let reuseId = "FeedCodeCell"
+    
+    weak var delegate: FeedCellDelegate?
 
-    // параметры элементов в ячейке которые динамически никак не изменяются в зависимости от контента
-    
-    
     // хз куда ее девать
     let moreTextButton: UIButton = {
        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Показать больше", for: .normal)
-        button.isHidden = true
+        //button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        button.setTitleColor(#colorLiteral(red: 0.4012392163, green: 0.6231879592, blue: 0.8316264749, alpha: 1), for: .normal)
+        button.contentHorizontalAlignment = .left // ???
+        button.setTitle("Показать полностью...", for: .normal)
+        //button.isHidden = true
         return button
     }()
     
@@ -203,6 +209,13 @@ class FeedCodeCell: UITableViewCell {
         return label
     }()
     
+    // зачем?
+    // Готовит ячейку многократного использования для повторного использования делегатом табличного представления.
+    override func prepareForReuse() {
+        iconImageView.set(imageUrl: nil)
+        photoImageView.set(imageUrl: nil)
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -222,14 +235,13 @@ class FeedCodeCell: UITableViewCell {
         
         backgroundColor = .clear
         selectionStyle = .none
+        
+        moreTextButton.addTarget(self, action: #selector(moreTextButtonTouch), for: .touchUpInside)
+        
     }
     
-    
-    // зачем?
-    // Готовит ячейку многократного использования для повторного использования делегатом табличного представления.
-    override func prepareForReuse() {
-        iconImageView.set(imageUrl: nil)
-        photoImageView.set(imageUrl: nil)
+    @objc func moreTextButtonTouch() {
+        delegate?.revealPost(for: self) // просто обновляем этот же пост чтобы раскрыть его
     }
     
     func set(viewModel: FeedCellViewModel) {
@@ -247,7 +259,7 @@ class FeedCodeCell: UITableViewCell {
         postLabel.frame = viewModel.sizes.postLabelFrame
         photoImageView.frame = viewModel.sizes.attachmentFrame
         countersPlaceholder.frame = viewModel.sizes.counterPlaceholderFrame
-        
+        moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
         
         
         
@@ -260,7 +272,9 @@ class FeedCodeCell: UITableViewCell {
         }
     }
     
-    func overlayFourthLayerOnСountersPlaceholderViews() {
+    
+    
+    private func overlayFourthLayerOnСountersPlaceholderViews() {
         likesView.addSubview(likesImage)
         likesImage.addSubview(likesLabel)
         
@@ -294,7 +308,7 @@ class FeedCodeCell: UITableViewCell {
         label.heightAnchor.constraint(equalToConstant: 20)
     }
     
-    func overlayThirdLayerOnСountersPlaceholder() {
+    private func overlayThirdLayerOnСountersPlaceholder() {
         countersPlaceholder.addSubview(likesView)
         countersPlaceholder.addSubview(commentsView)
         countersPlaceholder.addSubview(sharesView)
@@ -325,7 +339,7 @@ class FeedCodeCell: UITableViewCell {
         viewsView.widthAnchor.constraint(equalToConstant: Constants.countersPlaceholderViewWidth).isActive = true
     }
     
-    func overlayThirdLayerOnTopView() {
+    private func overlayThirdLayerOnTopView() {
         topView.addSubview(iconImageView)
         topView.addSubview(nameLabel)
         topView.addSubview(dateLabel)
@@ -349,7 +363,7 @@ class FeedCodeCell: UITableViewCell {
         dateLabel.heightAnchor.constraint(equalToConstant: 14).isActive = true
     }
     
-    func overlaySecondLayer() {
+    private func overlaySecondLayer() {
         cardView.addSubview(topView)
         cardView.addSubview(postLabel)
         cardView.addSubview(photoImageView)
