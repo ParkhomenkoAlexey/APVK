@@ -10,7 +10,7 @@ import UIKit
 
 protocol FeedCellLayoutCalculatorProtocol {
     // допустим пришли сюда с isFullSizedPost == true
-    func sizes(postText: String?, isFullSizedPost: Bool, photoAttachment: FeedCellPhotoAttachmentViewModel?) -> FeedCellSizes
+    func sizes(postText: String?, isFullSizedPost: Bool, photoAttachments: [FeedCellPhotoAttachmentViewModel]) -> FeedCellSizes
 }
 
 final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
@@ -29,7 +29,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         self.screenWidth = screenWidth
     }
     
-    func sizes(postText: String?, isFullSizedPost: Bool, photoAttachment: FeedCellPhotoAttachmentViewModel?) -> FeedCellSizes {
+    func sizes(postText: String?, isFullSizedPost: Bool, photoAttachments: [FeedCellPhotoAttachmentViewModel]) -> FeedCellSizes {
         
         var showMoreTextButton = false
         let fittingWidth = screenWidth - Constants.cardInsets.left - Constants.cardInsets.right
@@ -71,10 +71,18 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         var attachmentFrame = CGRect(origin: CGPoint(x: 0, y: attechmentTop), size: CGSize.zero)
         
-        if let attachment = photoAttachment {
+//        if let attachment = photoAttachment {
+//            let ratio = CGFloat(attachment.height / attachment.width)
+//            attachmentFrame.size = CGSize(width: fittingWidth, height: fittingWidth * ratio)
+//        }
+        
+        if let attachment = photoAttachments.first {
             let ratio = CGFloat(attachment.height / attachment.width)
-            attachmentFrame.size = CGSize(width: fittingWidth, height: fittingWidth * ratio)
+            if photoAttachments.count == 1 {
+                attachmentFrame.size = CGSize(width: fittingWidth, height: fittingWidth * ratio)
+            }
         }
+        
         
         // ---------------------------Работа с counterPlaceholderFrame-------------------
         let counterPlaceholderFrame = CGRect(x: 0,

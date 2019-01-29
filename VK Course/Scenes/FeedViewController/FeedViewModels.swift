@@ -25,7 +25,7 @@ enum Feed {
             var comments: String?
             var shares: String?
             var views: String?
-            var photoAttachement: FeedCellPhotoAttachmentViewModel?
+            var photoAttachements: [FeedCellPhotoAttachmentViewModel]
             var sizes: FeedCellSizes
         }
         

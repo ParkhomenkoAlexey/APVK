@@ -49,21 +49,21 @@ final class FeedPresenter: FeedPresenterLogic {
         
         let profile = self.profile(for: feedItem.sourceId, profiles: profiles, groups: groups)
         
-        let photoAttachemnt = self.photoAttachment(feedItem: feedItem)
+        let photoAttachemnts = self.photoAttachments(feedItem: feedItem)
         
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormatter.string(from: date)
         
         
         // пробегаемся по всему массиву revealedPostsIds, если хоть один элемент этого массива равен feedItem.postId то isFullSized == true
-        print(revealedPostsIds)
+        
         let isFullSized = revealedPostsIds.contains { (postId) -> Bool in
             return postId == feedItem.postId
         }
         // короткая запись
         // let isFullSized = revealedPostsIds.contains(feedItem.postId)
         
-        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, isFullSizedPost: isFullSized, photoAttachment: photoAttachemnt)
+        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, isFullSizedPost: isFullSized, photoAttachments: photoAttachemnts)
         
         return Feed.ViewModel.Cell.init(postId: feedItem.postId,
                                         iconUrlString: profile?.photo ?? "",
@@ -74,7 +74,7 @@ final class FeedPresenter: FeedPresenterLogic {
                                         comments: formattedCounter(feedItem.comments?.count),
                                         shares: formattedCounter(feedItem.reposts?.count),
                                         views: formattedCounter(feedItem.views?.count),
-                                        photoAttachement: photoAttachemnt,
+                                        photoAttachements: photoAttachemnts,
                                         sizes: sizes)
     }
     
@@ -94,18 +94,28 @@ final class FeedPresenter: FeedPresenterLogic {
         return String(counter)
     }
     
-    private func photoAttachment(feedItem: FeedItem) -> Feed.ViewModel.FeedCellPhotoAttachment? {
-        // .compactMap - Возвращает массив, содержащий ненулевые результаты вызова данного преобразования для каждого элемента этой последовательности.
-        // заполняем массив фотографий из поста
-        guard let photos = feedItem.attachments?.compactMap({ (attachment) in
-            attachment.photo
-        }), let firstPhoto = photos.first else {
-            return nil
-        }
-        
-        return Feed.ViewModel.FeedCellPhotoAttachment.init(photoUrlString: firstPhoto.srcBig,
-                                                           width: firstPhoto.width,
-                                                           height: firstPhoto.height)
+//    private func photoAttachment(feedItem: FeedItem) -> Feed.ViewModel.FeedCellPhotoAttachment? {
+//        // .compactMap - Возвращает массив, содержащий ненулевые результаты вызова данного преобразования для каждого элемента этой последовательности.
+//        // заполняем массив фотографий из поста
+//        guard let photos = feedItem.attachments?.compactMap({ (attachment) in
+//            attachment.photo
+//        }), let firstPhoto = photos.first else {
+//            return nil
+//        }
+//
+//        return Feed.ViewModel.FeedCellPhotoAttachment.init(photoUrlString: firstPhoto.srcBig,
+//                                                           width: firstPhoto.width,
+//                                                           height: firstPhoto.height)
+//    }
+    
+    private func photoAttachments(feedItem: FeedItem) -> [Feed.ViewModel.FeedCellPhotoAttachment] {
+        guard let attachments = feedItem.attachments else { return [] }
+        return attachments.compactMap({ attachment -> Feed.ViewModel.FeedCellPhotoAttachment? in
+            guard let photo = attachment.photo else { return nil }
+            return Feed.ViewModel.FeedCellPhotoAttachment.init(photoUrlString: photo.srcBig,
+                                                               width: photo.width,
+                                                               height: photo.height)
+        })
     }
     
 }

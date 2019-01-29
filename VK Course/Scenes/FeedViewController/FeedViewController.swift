@@ -84,7 +84,6 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     func revealPost(for cell: FeedCodeCell) {
         guard let indexPath = table.indexPath(for: cell) else { return }
         let cellViewModel = viewModel.cells[indexPath.row]
-        print(cellViewModel.postId)
         
         // при нажатии на кнопку мы достаем такое понятие как postId у нашей ячейки
         interactor.revealPostPostId(for: cellViewModel.postId) // раскрывает пост по данному ID
