@@ -42,8 +42,6 @@ class UpdateRowLayout: UICollectionViewLayout {
   override var collectionViewContentSize: CGSize {
     return CGSize(width: contentWidth, height: contentHeight)
   }
-  
-  open var rowHeight: CGFloat = 0
     
   override func prepare() {
     contentWidth = 0
@@ -57,28 +55,16 @@ class UpdateRowLayout: UICollectionViewLayout {
     for item in 0 ..< collectionView.numberOfItems(inSection: 0) {
       let indexPath = IndexPath(item: item, section: 0)
       let photoSize = delegate.collectionView(collectionView, photoAtIndexPath: indexPath)
-      //print("photoSize: \(photoSize)")
       photos.append(photoSize)
     }
+    let superviewWidth = collectionView.frame.width
     
-    // 1.7 проанализировав размеры всех фото нашли такую высоту фото
-    // которая позволит вмещать даже самое длинное фото на полный экран в ущерб маленьким фото (но это не критично)
+    // 1.7
+    guard let rowHeight = rowHeightCounter(superviewWidth: superviewWidth, photosArray: photos) else { return }
+    
+    
+    
     let photosRatios = photos.map {$0.height / $0.width}
-    //print(photosRatios)
-    let photoWithMinRatio = photos.min { (first, second) -> Bool in
-      (first.height / first.width) < (second.height / second.width)
-    }
-    
-    guard let myPhotoWithMinRatio = photoWithMinRatio else {
-        //print("не нашло")
-        return
-    }
-    //print(collectionView.frame.width)
-    //print(myPhotoWithMinRatio)
-    let difference = collectionView.frame.width / myPhotoWithMinRatio.width
-    //print(difference)
-    rowHeight = myPhotoWithMinRatio.height * difference
-    //print(rowHeight)
     
     // 2
     var yOffset = [CGFloat]()
@@ -112,6 +98,30 @@ class UpdateRowLayout: UICollectionViewLayout {
     
   } // prepare()
   
+    // если эта функция больше нигде не понадобится то убрать из нее superviewWidth
+    func rowHeightCounter(superviewWidth: CGFloat, photosArray: [CGSize]) -> CGFloat? {
+        var rowHeight: CGFloat?
+        
+        // проанализировав размеры всех фото нашли такую высоту фото
+        // которая позволит вмещать даже самое длинное фото на полный экран в ущерб маленьким фото (но это не критично)
+        let photoWithMinRatio = photosArray.min { (first, second) -> Bool in
+            (first.height / first.width) < (second.height / second.width)
+        }
+        
+        //print(superviewWidth)
+        guard let myPhotoWithMinRatio = photoWithMinRatio else {
+            //print("не нашло")
+            return nil
+        }
+        
+        //print(myPhotoWithMinRatio)
+        let difference = superviewWidth / myPhotoWithMinRatio.width
+        //print(difference)
+        rowHeight = myPhotoWithMinRatio.height * difference
+        //print(rowHeight)
+        
+        return rowHeight
+    }
   
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     var visibleLayoutAttributes = [UICollectionViewLayoutAttributes]()
