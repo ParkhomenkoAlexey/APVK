@@ -27,8 +27,8 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
     }
     
     func set(photos: [FeedCellPhotoAttachmentViewModel]) {
-        
         self.photos = photos
+        reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
