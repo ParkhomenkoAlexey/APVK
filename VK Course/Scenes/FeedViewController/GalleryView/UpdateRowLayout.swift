@@ -20,7 +20,7 @@ class UpdateRowLayout: UICollectionViewLayout {
   weak var delegate: UpdateRowLayoutDelegate!
   
   // 2
-  fileprivate var numberOfRows = 1
+    static var numberOfRows: CGFloat = 2
   fileprivate var cellPadding: CGFloat = 4
   
   // 3
@@ -60,20 +60,20 @@ class UpdateRowLayout: UICollectionViewLayout {
     let superviewWidth = collectionView.frame.width
     
     // 1.7
-    guard let rowHeight = UpdateRowLayout.rowHeightCounter(superviewWidth: superviewWidth, photosArray: photos) else { return }
-    
+    guard var rowHeight = UpdateRowLayout.rowHeightCounter(superviewWidth: superviewWidth, photosArray: photos) else { return }
+    rowHeight = rowHeight / UpdateRowLayout.numberOfRows
     
     
     let photosRatios = photos.map {$0.height / $0.width}
     
     // 2
     var yOffset = [CGFloat]()
-    for row in 0 ..< numberOfRows {
+    for row in 0 ..< Int(UpdateRowLayout.numberOfRows) {
       yOffset.append(CGFloat(row) * rowHeight)
     }
     
     var row = 0
-    var xOffset = [CGFloat](repeating: 0, count: numberOfRows)
+    var xOffset = [CGFloat](repeating: 0, count: Int(UpdateRowLayout.numberOfRows))
     
     // 3
     for item in 0 ..< collectionView.numberOfItems(inSection: 0) {
@@ -93,14 +93,14 @@ class UpdateRowLayout: UICollectionViewLayout {
     // 6
       contentWidth = max(contentWidth, frame.maxX)
       xOffset[row] = xOffset[row] + width
-      row = row < (numberOfRows - 1) ? (row + 1) : 0
+        row = row < Int((UpdateRowLayout.numberOfRows - 1)) ? (row + 1) : 0
     }
     
   } // prepare()
   
     // если эта функция больше нигде не понадобится то убрать из нее superviewWidth
     static func rowHeightCounter(superviewWidth: CGFloat, photosArray: [CGSize]) -> CGFloat? {
-        var rowHeight: CGFloat?
+        var rowHeight: CGFloat
         
         // проанализировав размеры всех фото нашли такую высоту фото
         // которая позволит вмещать даже самое длинное фото на полный экран в ущерб маленьким фото (но это не критично)
@@ -119,7 +119,7 @@ class UpdateRowLayout: UICollectionViewLayout {
         //print(difference)
         rowHeight = myPhotoWithMinRatio.height * difference
         //print(rowHeight)
-        
+        rowHeight = rowHeight * UpdateRowLayout.numberOfRows
         return rowHeight
     }
   
