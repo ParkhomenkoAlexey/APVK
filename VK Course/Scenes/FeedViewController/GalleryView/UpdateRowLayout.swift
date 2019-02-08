@@ -60,7 +60,7 @@ class UpdateRowLayout: UICollectionViewLayout {
     let superviewWidth = collectionView.frame.width
     
     // 1.7
-    guard let rowHeight = rowHeightCounter(superviewWidth: superviewWidth, photosArray: photos) else { return }
+    guard let rowHeight = UpdateRowLayout.rowHeightCounter(superviewWidth: superviewWidth, photosArray: photos) else { return }
     
     
     
@@ -99,7 +99,7 @@ class UpdateRowLayout: UICollectionViewLayout {
   } // prepare()
   
     // если эта функция больше нигде не понадобится то убрать из нее superviewWidth
-    func rowHeightCounter(superviewWidth: CGFloat, photosArray: [CGSize]) -> CGFloat? {
+    static func rowHeightCounter(superviewWidth: CGFloat, photosArray: [CGSize]) -> CGFloat? {
         var rowHeight: CGFloat?
         
         // проанализировав размеры всех фото нашли такую высоту фото
