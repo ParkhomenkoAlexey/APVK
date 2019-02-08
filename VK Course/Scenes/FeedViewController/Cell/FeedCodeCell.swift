@@ -75,6 +75,8 @@ final class FeedCodeCell: UITableViewCell {
         return view
     }()
     
+    private var galleryCollectionView = GalleryCollectionView()
+    
     let postLabel: UILabel = {
        let label = UILabel()
         //label.translatesAutoresizingMaskIntoConstraints = false
@@ -214,6 +216,7 @@ final class FeedCodeCell: UITableViewCell {
     override func prepareForReuse() {
         iconImageView.set(imageUrl: nil)
         photoImageView.set(imageUrl: nil)
+        
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -238,6 +241,8 @@ final class FeedCodeCell: UITableViewCell {
         
         moreTextButton.addTarget(self, action: #selector(moreTextButtonTouch), for: .touchUpInside)
         
+        
+        cardView.addSubview(galleryCollectionView)
     }
     
     @objc func moreTextButtonTouch() {
@@ -257,7 +262,7 @@ final class FeedCodeCell: UITableViewCell {
         // кроме заполнения информацией ячеек мы также
         // устанавливаем размеры объектов каждой ячейки
         postLabel.frame = viewModel.sizes.postLabelFrame
-        photoImageView.frame = viewModel.sizes.attachmentFrame
+        //photoImageView.frame = viewModel.sizes.attachmentFrame
         countersPlaceholder.frame = viewModel.sizes.counterPlaceholderFrame
         moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
         
@@ -266,10 +271,21 @@ final class FeedCodeCell: UITableViewCell {
         // если у нас имеются фотографии в после
         
         if let photoAttachment = viewModel.photoAttachements.first, viewModel.photoAttachements.count == 1 {
-                        photoImageView.set(imageUrl: photoAttachment.photoUrlString)
-                        photoImageView.isHidden = false
+            photoImageView.isHidden = false
+            galleryCollectionView.isHidden = true
+            photoImageView.set(imageUrl: photoAttachment.photoUrlString)
+            photoImageView.frame = viewModel.sizes.attachmentFrame
+            
+        } else if viewModel.photoAttachements.count > 1 {
+            print("много")
+            photoImageView.isHidden = true
+            galleryCollectionView.isHidden = false
+            galleryCollectionView.frame = viewModel.sizes.attachmentFrame
+            galleryCollectionView.set(photos: viewModel.photoAttachements)
+            
         } else {
             photoImageView.isHidden = true
+            galleryCollectionView.isHidden = true
         }
     }
     

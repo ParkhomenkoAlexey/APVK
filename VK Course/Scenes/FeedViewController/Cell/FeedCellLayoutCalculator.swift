@@ -71,14 +71,13 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         var attachmentFrame = CGRect(origin: CGPoint(x: 0, y: attechmentTop), size: CGSize.zero)
         
-//        if let attachment = photoAttachment {
-//            let ratio = CGFloat(attachment.height / attachment.width)
-//            attachmentFrame.size = CGSize(width: fittingWidth, height: fittingWidth * ratio)
-//        }
+
         
         if let attachment = photoAttachments.first {
             let ratio = CGFloat(attachment.height / attachment.width)
             if photoAttachments.count == 1 {
+                attachmentFrame.size = CGSize(width: fittingWidth, height: fittingWidth * ratio)
+            } else if photoAttachments.count > 1 {
                 attachmentFrame.size = CGSize(width: fittingWidth, height: fittingWidth * ratio)
             }
         }
