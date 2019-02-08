@@ -277,7 +277,6 @@ final class FeedCodeCell: UITableViewCell {
             photoImageView.frame = viewModel.sizes.attachmentFrame
             
         } else if viewModel.photoAttachements.count > 1 {
-            print("много")
             photoImageView.isHidden = true
             galleryCollectionView.isHidden = false
             galleryCollectionView.frame = viewModel.sizes.attachmentFrame
