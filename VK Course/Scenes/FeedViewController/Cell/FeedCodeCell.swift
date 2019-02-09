@@ -61,7 +61,6 @@ final class FeedCodeCell: UITableViewCell {
     // Первый слой
     let cardView: UIView = {
        let view = UIView()
-        view.layer.cornerRadius = 10
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)

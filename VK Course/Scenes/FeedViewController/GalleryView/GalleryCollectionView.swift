@@ -13,16 +13,15 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
     var photos = [FeedCellPhotoAttachmentViewModel]()
 
     init() {
-        let layout = UICollectionViewFlowLayout()
+        
         let rowLayout = UpdateRowLayout()
-        layout.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: rowLayout)
         
         delegate = self
         dataSource = self
         register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCell.reuseId)
         
-        backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+        backgroundColor = .white
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
         
@@ -44,7 +43,6 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
         let cell = dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.reuseId, for: indexPath) as! GalleryCollectionViewCell
         
         cell.set(imageUrl: photos[indexPath.row].photoUrlString)
-    
         return cell
     }
         

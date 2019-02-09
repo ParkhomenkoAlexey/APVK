@@ -84,10 +84,10 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
                     let photoSize = CGSize(width: CGFloat(photo.width), height: CGFloat(photo.height))
                     array.append(photoSize)
                 }
-                print(array)
+                //print(array)
                 let rowHeight = UpdateRowLayout.rowHeightCounter(superviewWidth: fittingWidth, photosArray: array)
-                print(rowHeight)
-                attachmentFrame.size = CGSize(width: fittingWidth, height: rowHeight!)
+                //print(rowHeight)
+                attachmentFrame.size = CGSize(width: fittingWidth, height: rowHeight!) 
             }
         }
         

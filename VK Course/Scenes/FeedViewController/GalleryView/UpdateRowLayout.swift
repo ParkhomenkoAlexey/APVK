@@ -20,8 +20,8 @@ class UpdateRowLayout: UICollectionViewLayout {
   weak var delegate: UpdateRowLayoutDelegate!
   
   // 2
-    static var numberOfRows: CGFloat = 2
-  fileprivate var cellPadding: CGFloat = 4
+    static var numberOfRows: CGFloat = 1
+  fileprivate var cellPadding: CGFloat = 8
   
   // 3
   fileprivate var cache = [UICollectionViewLayoutAttributes]()
@@ -84,7 +84,6 @@ class UpdateRowLayout: UICollectionViewLayout {
     let width = rowHeight / ratio
     let frame = CGRect(x: xOffset[row], y: yOffset[row], width: width, height: rowHeight)
     let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
-      
     // 5
       let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
       attributes.frame = insetFrame
