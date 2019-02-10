@@ -19,6 +19,12 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     private var viewModel = Feed.ViewModel.init(cells: [])
     private lazy var titleView = TitleView()
     
+    private lazy var refreshControl: UIRefreshControl = {
+       let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        return refreshControl
+    }()
+    
     // в оригинале private
     @IBOutlet weak var table: UITableView!
     
@@ -35,6 +41,12 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         
         interactor.getUser()
         // достаем всю инфу, она уже вся в ячейках
+        interactor.getFeed()
+        
+        table.addSubview(refreshControl)
+    }
+    
+    @objc private func refresh(_ refreshControl: UIRefreshControl) {
         interactor.getFeed()
     }
     
@@ -76,6 +88,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     func displayViewModel(_ viewModel: Feed.ViewModel) {
         self.viewModel = viewModel
         table.reloadData()
+        refreshControl.endRefreshing()
     }
     
     // MARK: - UITableViewDelegate & UITableViewDataSource

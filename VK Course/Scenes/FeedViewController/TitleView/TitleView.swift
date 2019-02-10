@@ -21,7 +21,7 @@ class TitleView: UIView {
        let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .blue
-        imageView.clipsToBounds = true
+        imageView.clipsToBounds = true // если уберем то моя аватарка станет квадратной несмотря на "override var bounds: CGRect"
         return imageView
     }()
     
