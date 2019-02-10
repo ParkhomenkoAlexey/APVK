@@ -33,6 +33,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         myImageView.image = nil
     }
     

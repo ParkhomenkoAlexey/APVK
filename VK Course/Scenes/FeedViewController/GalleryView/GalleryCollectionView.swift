@@ -32,6 +32,7 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
     
     func set(photos: [FeedCellPhotoAttachmentViewModel]) {
         self.photos = photos
+        contentOffset = CGPoint.zero // row с фотками возвращается на место к первой фотке
         reloadData()
     }
     
