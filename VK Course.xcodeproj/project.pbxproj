@@ -10,6 +10,7 @@
 		F04C2A8021F9DDEA00E1B1C8 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */; };
 		F04C2A8921FA0FF200E1B1C8 /* String + Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */; };
 		F04C2A8B21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */; };
+		F08661DD220F5B7B000C52A8 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08661DC220F5B7B000C52A8 /* TitleView.swift */; };
 		F0C843AD21FAFDE000AAB79E /* FeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0C843AC21FAFDE000AAB79E /* FeedCell.xib */; };
 		F0C843D821FC511E00AAB79E /* FeedCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C843D721FC511E00AAB79E /* FeedCodeCell.swift */; };
 		F0C843DA21FC518800AAB79E /* Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C843D921FC518800AAB79E /* Extention.swift */; };
@@ -30,6 +31,7 @@
 		F0DA740A21F87EBE00BA4CCD /* FeedViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA740921F87EBE00BA4CCD /* FeedViewModels.swift */; };
 		F0DA740C21F8813C00BA4CCD /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA740B21F8813C00BA4CCD /* FeedPresenter.swift */; };
 		F0DA740E21F885E000BA4CCD /* FeedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0DA740D21F885E000BA4CCD /* FeedInteractor.swift */; };
+		F0E382E1221019F90011E890 /* InsetableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E382E0221019F90011E890 /* InsetableTextField.swift */; };
 		F0EBB5E1220DDEEC00D1A645 /* GalleryCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBB5E0220DDEEC00D1A645 /* GalleryCollectionView.swift */; };
 		F0EBB5E3220DDEF900D1A645 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBB5E2220DDEF900D1A645 /* GalleryCollectionViewCell.swift */; };
 		F0EBB5E5220DE8E500D1A645 /* UpdateRowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0EBB5E4220DE8E400D1A645 /* UpdateRowLayout.swift */; };
@@ -39,6 +41,7 @@
 		F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Helpers.swift"; sourceTree = "<group>"; };
 		F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellLayoutCalculator.swift; sourceTree = "<group>"; };
+		F08661DC220F5B7B000C52A8 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		F0C843AC21FAFDE000AAB79E /* FeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCell.xib; sourceTree = "<group>"; };
 		F0C843D721FC511E00AAB79E /* FeedCodeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedCodeCell.swift; sourceTree = "<group>"; };
 		F0C843D921FC518800AAB79E /* Extention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extention.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 		F0DA740921F87EBE00BA4CCD /* FeedViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModels.swift; sourceTree = "<group>"; };
 		F0DA740B21F8813C00BA4CCD /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		F0DA740D21F885E000BA4CCD /* FeedInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedInteractor.swift; sourceTree = "<group>"; };
+		F0E382E0221019F90011E890 /* InsetableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetableTextField.swift; sourceTree = "<group>"; };
 		F0EBB5E0220DDEEC00D1A645 /* GalleryCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionView.swift; sourceTree = "<group>"; };
 		F0EBB5E2220DDEF900D1A645 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		F0EBB5E4220DE8E400D1A645 /* UpdateRowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateRowLayout.swift; sourceTree = "<group>"; };
@@ -78,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F08661DB220F5B4C000C52A8 /* TitleView */ = {
+			isa = PBXGroup;
+			children = (
+				F08661DC220F5B7B000C52A8 /* TitleView.swift */,
+				F0E382E0221019F90011E890 /* InsetableTextField.swift */,
+			);
+			path = TitleView;
+			sourceTree = "<group>";
+		};
 		F0DA73BE21F784CF00BA4CCD = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +164,7 @@
 		F0DA73F321F795F300BA4CCD /* FeedViewController */ = {
 			isa = PBXGroup;
 			children = (
+				F08661DB220F5B4C000C52A8 /* TitleView */,
 				F0EBB5DF220DDECF00D1A645 /* GalleryView */,
 				F0DA740821F87E4100BA4CCD /* Cell */,
 				F0DA73F121F795E700BA4CCD /* FeedViewController.storyboard */,
@@ -312,6 +326,8 @@
 				F0DA73F821F7A37F00BA4CCD /* API.swift in Sources */,
 				F0C843D821FC511E00AAB79E /* FeedCodeCell.swift in Sources */,
 				F0EBB5E3220DDEF900D1A645 /* GalleryCollectionViewCell.swift in Sources */,
+				F0E382E1221019F90011E890 /* InsetableTextField.swift in Sources */,
+				F08661DD220F5B7B000C52A8 /* TitleView.swift in Sources */,
 				F0DA73CB21F784CF00BA4CCD /* AppDelegate.swift in Sources */,
 				F0DA73FA21F7A50B00BA4CCD /* NetworkService.swift in Sources */,
 				F0DA740521F87D2500BA4CCD /* FeedCell.swift in Sources */,

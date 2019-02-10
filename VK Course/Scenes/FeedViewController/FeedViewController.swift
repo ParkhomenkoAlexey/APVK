@@ -24,6 +24,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         super.viewDidLoad()
         
         assemble()
+        setupTopBars()
         //table.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: FeedCell.reuseId)
         table.register(FeedCodeCell.self, forCellReuseIdentifier: FeedCodeCell.reuseId)
         table.separatorStyle = .none
@@ -32,6 +33,23 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         
         // достаем всю инфу, она уже вся в ячейках
         interactor.getFeed()
+    }
+    
+    private func setupTopBars() {
+        self.navigationController?.hidesBarsOnSwipe = true
+        let topBar = UIView(frame: UIApplication.shared.statusBarFrame)
+        topBar.backgroundColor = .white
+        topBar.layer.shadowColor = UIColor.black.cgColor
+        topBar.layer.shadowOpacity = 0.1
+        topBar.layer.shadowOffset = CGSize.zero
+        topBar.layer.shadowRadius = 8
+        self.view.addSubview(topBar)
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        let titleView = TitleView()
+        self.navigationItem.titleView = titleView
+        
     }
     
     private func assemble() {

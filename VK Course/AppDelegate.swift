@@ -75,7 +75,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthServiceDelegate {
         
         if !(window?.rootViewController is FeedViewController) {
 
-            window?.rootViewController = FeedViewController.loadFromStoryboard()
+            let feedVC = FeedViewController.loadFromStoryboard()
+            let navVC = UINavigationController(rootViewController: feedVC)
+            window?.rootViewController = navVC
            
         } else {
             print("no FeedVC")
