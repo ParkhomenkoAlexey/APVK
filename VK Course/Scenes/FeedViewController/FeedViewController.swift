@@ -11,13 +11,16 @@ import UIKit
 protocol FeedDisplayLogic: class {
     func displayUserViewModel(_ userViewModel: Feed.UserViewModel)
     func displayViewModel(_ viewModel:Feed.ViewModel)
+    func displayFooterLoader()
 }
 
 class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegate, UITableViewDataSource, FeedCellDelegate {
     
     private var interactor: FeedBusinessLogic!
-    private var viewModel = Feed.ViewModel.init(cells: [])
+    private var viewModel = Feed.ViewModel.init(cells: [], footerTitle: nil)
+    
     private lazy var titleView = TitleView()
+    private lazy var footerView = FooterView()
     
     private lazy var refreshControl: UIRefreshControl = {
        let refreshControl = UIRefreshControl()
@@ -44,6 +47,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         interactor.getFeed()
         
         table.addSubview(refreshControl)
+        table.tableFooterView = footerView
     }
     
     @objc private func refresh(_ refreshControl: UIRefreshControl) {
@@ -87,8 +91,13 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     // метод вызывается для обновления пользовательского интерфейса
     func displayViewModel(_ viewModel: Feed.ViewModel) {
         self.viewModel = viewModel
-        table.reloadData()
         refreshControl.endRefreshing()
+        footerView.setTitle(viewModel.footerTitle)
+        table.reloadData()
+    }
+    
+    func displayFooterLoader() {
+        footerView.showLoader()
     }
     
     // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -128,7 +137,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
-        if scrollView.contentOffset.y > scrollView.contentSize.height / 2 {
+        if scrollView.contentOffset.y > scrollView.contentSize.height / 1.1 {
             interactor.getNextBatch()
         }
     }

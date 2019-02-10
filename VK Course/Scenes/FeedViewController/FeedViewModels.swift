@@ -42,6 +42,8 @@ enum Feed {
         }
         // и у ленты новостей есть собственно ячейки с этими новостями
         let cells: [Cell]
+        
+        let footerTitle: String?
     }
 }
 

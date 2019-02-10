@@ -13,6 +13,7 @@ import UIKit
 protocol FeedPresenterLogic: class {
     func presentUserInfo(_ userResponse: UserResponse?)
     func presentFeed(_ feedResponse: FeedResponse, revealedPostIds: [Int])
+    func presentFooterLoader()
 }
 
 final class FeedPresenter: FeedPresenterLogic {
@@ -44,8 +45,14 @@ final class FeedPresenter: FeedPresenterLogic {
             cellViewModel(from: feedItem, profiles: feedResponse.profiles, groups: feedResponse.groups, revealedPostsIds: revealedPostIds)
         }
         
-        let viewModel = Feed.ViewModel.init(cells: cells)
+        let footerTitle = String.localizedStringWithFormat(NSLocalizedString("record_count", comment: ""), cells.count)
+        let viewModel = Feed.ViewModel.init(cells: cells, footerTitle: footerTitle)
         viewController.displayViewModel(viewModel) // этот метод насколько я понял берет этот viewModel и обновляет ИМ viewModel который находится в файле FeedViewController.swift
+        
+    }
+    
+    func presentFooterLoader() {
+        viewController.displayFooterLoader()
         
     }
     
