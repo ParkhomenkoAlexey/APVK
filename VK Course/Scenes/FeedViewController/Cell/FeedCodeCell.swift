@@ -53,8 +53,8 @@ final class FeedCodeCell: UITableViewCell {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         button.setTitleColor(#colorLiteral(red: 0.4012392163, green: 0.6231879592, blue: 0.8316264749, alpha: 1), for: .normal)
         button.contentHorizontalAlignment = .left // ???
+        button.contentVerticalAlignment = .center
         button.setTitle("Показать полностью...", for: .normal)
-        //button.isHidden = true
         return button
     }()
     

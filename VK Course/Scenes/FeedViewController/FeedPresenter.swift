@@ -62,14 +62,19 @@ final class FeedPresenter: FeedPresenterLogic {
         }
         // короткая запись
         // let isFullSized = revealedPostsIds.contains(feedItem.postId)
+        //let postText = feedItem.text?.replacingOccurrences(of: "<br>", with: "\n")
         
-        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, isFullSizedPost: isFullSized, photoAttachments: photoAttachemnts)
+        let postText = feedItem.text?.replacingOccurrences(of: "<br>", with: "\n")
+        
+        let sizes = cellLayoutCalculator.sizes(postText: postText, isFullSizedPost: isFullSized, photoAttachments: photoAttachemnts)
+        
+        
         
         return Feed.ViewModel.Cell.init(postId: feedItem.postId,
                                         iconUrlString: profile?.photo ?? "",
                                         name: profile?.name ?? "Noname",
                                         date: dateTitle,
-                                        text: feedItem.text,
+                                        text: postText,
                                         likes: formattedCounter(feedItem.likes?.count),
                                         comments: formattedCounter(feedItem.comments?.count),
                                         shares: formattedCounter(feedItem.reposts?.count),
