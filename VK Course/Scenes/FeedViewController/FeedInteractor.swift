@@ -9,6 +9,7 @@
 import Foundation
 
 protocol FeedBusinessLogic: class {
+    func getUser()
     func getFeed()
     func revealPostPostId(for postId: Int)
 }
@@ -19,12 +20,23 @@ final class FeedInteractor: FeedBusinessLogic {
     private let presenter: FeedPresenterLogic
     private let networkService: NetworkService
     
+    private var userResponse: UserResponse?
     private var feedResponse: FeedResponse?
     private var revealedPostsIds = [Int]()
     
     init(presenter: FeedPresenterLogic, networkService: NetworkService) {
         self.presenter = presenter
         self.networkService = networkService
+    }
+    
+    func getUser() {
+        networkService.getUser(completion: { [weak self] user in
+            self?.userResponse = user
+            self?.presenter.presentUserInfo(user)
+            
+            }, failure: {
+                print("failure Feed Interactor")
+        })
     }
     
     // достаем Feed из инета

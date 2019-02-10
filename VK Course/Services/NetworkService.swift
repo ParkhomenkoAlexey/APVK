@@ -18,6 +18,18 @@ final class NetworkService {
         self.authService = authService
     }
 
+    func getUser(completion: @escaping (UserResponse?) -> Void, failure: @escaping () -> Void) {
+        guard let userId = authService.userId else { return }
+        let params = ["user_ids": userId, "fields": "photo_100"]
+        sendDataRequest(path: API.user,
+                        params: params,
+                        completion: { (user: UserResponseWrapped) -> Void in
+                            completion(user.response.first)
+        },
+                        failure: failure)
+    }
+    
+    
     // эта функция универсальна в плане того, что
     // функция, которая вытаскивает из инета всю информацию о постах в формате JSON
     func getFeed(completion: @escaping (FeedResponse) -> Void, failure: @escaping () -> Void) {

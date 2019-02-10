@@ -9,6 +9,7 @@
 import UIKit
 
 protocol FeedDisplayLogic: class {
+    func displayUserViewModel(_ userViewModel: Feed.UserViewModel)
     func displayViewModel(_ viewModel:Feed.ViewModel)
 }
 
@@ -16,6 +17,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     
     private var interactor: FeedBusinessLogic!
     private var viewModel = Feed.ViewModel.init(cells: [])
+    private lazy var titleView = TitleView()
     
     // в оригинале private
     @IBOutlet weak var table: UITableView!
@@ -31,6 +33,7 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         table.backgroundColor = .clear
         view.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
         
+        interactor.getUser()
         // достаем всю инфу, она уже вся в ячейках
         interactor.getFeed()
     }
@@ -47,7 +50,6 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
-        let titleView = TitleView()
         self.navigationItem.titleView = titleView
         
     }
@@ -65,6 +67,10 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
     }
     
     // MARK: - FeedDisplayLogic
+    
+    func displayUserViewModel(_ userViewModel: Feed.UserViewModel) {
+        titleView.set(userViewModel: userViewModel)
+    }
     
     // метод вызывается для обновления пользовательского интерфейса
     func displayViewModel(_ viewModel: Feed.ViewModel) {

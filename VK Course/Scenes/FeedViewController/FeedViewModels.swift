@@ -12,6 +12,12 @@ import UIKit
 // зачем?
 // Энум ленты новостей
 enum Feed {
+    
+    struct UserViewModel: TitleViewViewModel {
+        var photoUrlString: String?
+    
+    }
+    
     // у ленты новостей есть модель новости (или поста)
     struct ViewModel {
         struct Cell: FeedCellViewModel {

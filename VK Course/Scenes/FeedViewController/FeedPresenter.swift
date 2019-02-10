@@ -11,6 +11,7 @@ import UIKit
 // зачем?
 // отвечает за заполнение ячеек нужной информацией
 protocol FeedPresenterLogic: class {
+    func presentUserInfo(_ userResponse: UserResponse?)
     func presentFeed(_ feedResponse: FeedResponse, revealedPostIds: [Int])
 }
 
@@ -28,6 +29,10 @@ final class FeedPresenter: FeedPresenterLogic {
         dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ru_RU")
         dateFormatter.dateFormat = "d MMM 'в' HH:mm"
+    }
+    
+    func presentUserInfo(_ userResponse: UserResponse?) {
+        viewController.displayUserViewModel(Feed.UserViewModel.init(photoUrlString: userResponse?.photo100))
     }
     
     func presentFeed(_ feedResponse: FeedResponse, revealedPostIds: [Int]) {
@@ -62,8 +67,7 @@ final class FeedPresenter: FeedPresenterLogic {
         }
         // короткая запись
         // let isFullSized = revealedPostsIds.contains(feedItem.postId)
-        //let postText = feedItem.text?.replacingOccurrences(of: "<br>", with: "\n")
-        
+    
         let postText = feedItem.text?.replacingOccurrences(of: "<br>", with: "\n")
         
         let sizes = cellLayoutCalculator.sizes(postText: postText, isFullSizedPost: isFullSized, photoAttachments: photoAttachemnts)

@@ -8,15 +8,20 @@
 
 import UIKit
 
+protocol TitleViewViewModel {
+    var photoUrlString: String? { get }
+}
+
 class TitleView: UIView {
     
     
     private var myTextField = InsetableTextField()
     
-    private var myAvatarView: UIImageView = {
-       let imageView = UIImageView()
+    private var myAvatarView: WebImageView = {
+       let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .blue
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -25,6 +30,10 @@ class TitleView: UIView {
             myAvatarView.layoutIfNeeded()
             myAvatarView.layer.cornerRadius = myAvatarView.frame.width / 2
         }
+    }
+    
+    func set(userViewModel: TitleViewViewModel) {
+        myAvatarView.set(imageUrl: userViewModel.photoUrlString)
     }
     
     override init(frame: CGRect) {
