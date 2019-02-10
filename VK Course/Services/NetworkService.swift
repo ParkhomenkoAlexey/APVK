@@ -27,21 +27,22 @@ final class NetworkService {
                             completion(user.response.first)
         },
                         failure: failure)
-    }
+    } // getUser
     
     
     // эта функция универсальна в плане того, что
     // функция, которая вытаскивает из инета всю информацию о постах в формате JSON
-    func getFeed(completion: @escaping (FeedResponse) -> Void, failure: @escaping () -> Void) {
+    func getFeed(nextBatchFrom: String? = nil, completion: @escaping (FeedResponse) -> Void, failure: @escaping () -> Void) {
         
-        let params = ["filters": "post,photo"]
+        var params = ["filters": "post,photo"]
+        params["start_from"] = nextBatchFrom
         
         
         // что то я не могу понять где у меня фигурируют параметры из файла FeedResponse
         sendDataRequest(path: API.newsFeed, params: params, completion: { (feed: FeedResponseWrapped) -> Void in
             completion(feed.response)
         }, failure: failure)
-    }
+    } // getFeed
     
     // 2 функции ниже работают с запросом информации из инета, чтобы не загромождать метод выше
     private func sendDataRequest<T: Decodable>(path: String,
@@ -52,14 +53,15 @@ final class NetworkService {
         guard let token = authService.token else { return }
         let session = URLSession(configuration: .default)
         
-        // ["filters": "post,photo,photo_tag,wall_photo"] + token + version
         var paramsWithTokenAndVerion = params
         paramsWithTokenAndVerion["access_token"] = token
-        paramsWithTokenAndVerion["version"] = API.version
+        paramsWithTokenAndVerion["v"] = API.version
         
         // создаем URL
         let url = self.url(from: path, params: paramsWithTokenAndVerion)
         //print(url)
+        
+        //print("Send request: \(url.absoluteString)")
         
         // и при таком запросе с такими параметрами ["filters": "post,photo,photo_tag,wall_photo"] + token + version я на выходе получу:
         //
@@ -70,7 +72,7 @@ final class NetworkService {
             if let data = data {
                 do {
                     let decoder = JSONDecoder()
-                    let json = try? JSONSerialization.jsonObject(with: data, options: [])
+                    //let json = try? JSONSerialization.jsonObject(with: data, options: [])
                     //print("json \(json)")
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let decodedResponse = try decoder.decode(T.self, from: data)

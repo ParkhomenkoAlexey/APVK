@@ -126,5 +126,12 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         interactor.revealPostPostId(for: cellViewModel.postId) // раскрывает пост по данному ID
     }
     
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+        if scrollView.contentOffset.y > scrollView.contentSize.height / 2 {
+            interactor.getNextBatch()
+        }
+    }
+    
 }
 

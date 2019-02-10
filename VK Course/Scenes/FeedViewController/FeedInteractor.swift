@@ -11,6 +11,7 @@ import Foundation
 protocol FeedBusinessLogic: class {
     func getUser()
     func getFeed()
+    func getNextBatch()
     func revealPostPostId(for postId: Int)
 }
 
@@ -23,6 +24,7 @@ final class FeedInteractor: FeedBusinessLogic {
     private var userResponse: UserResponse?
     private var feedResponse: FeedResponse?
     private var revealedPostsIds = [Int]()
+    private var newFromInProcess: String?
     
     init(presenter: FeedPresenterLogic, networkService: NetworkService) {
         self.presenter = presenter
@@ -41,8 +43,10 @@ final class FeedInteractor: FeedBusinessLogic {
     
     // достаем Feed из инета
     func getFeed() {
-        networkService.getFeed(completion: { [weak self]
-            feedResponse in
+        
+        guard newFromInProcess == nil else { return }
+        
+        networkService.getFeed(completion: { [weak self] feedResponse in
             // если достали то 
             //self?.presenter.presentFeed(feedResponse)
             
@@ -52,6 +56,24 @@ final class FeedInteractor: FeedBusinessLogic {
                 print("failure Feed Interactor")
         })
     }
+    
+    func getNextBatch() {
+        guard newFromInProcess == nil else { return }
+        newFromInProcess = feedResponse?.nextFrom
+        
+        networkService.getFeed(nextBatchFrom: feedResponse?.nextFrom, completion: { [weak self] feedResponse in
+            self?.newFromInProcess = nil
+            guard self?.feedResponse?.nextFrom != feedResponse.nextFrom else { return }
+            
+            self?.mergeResponse(feedResponse)
+            self?.presentFeed()
+            }, failure: { [weak self] in
+                print("TEST TEST TEST")
+                self?.newFromInProcess = nil
+        })
+    }
+    
+    
     
     func revealPostPostId(for postId: Int) {
         // теперь мы это значение передаем в массив
@@ -63,5 +85,40 @@ final class FeedInteractor: FeedBusinessLogic {
         guard let feedResponse = feedResponse else { return }
         presenter.presentFeed(feedResponse, revealedPostIds: revealedPostsIds) // зачем мы в presenter передаем revealedPostIds?
     }
+
+    
+    private func mergeResponse(_ nextBatch: FeedResponse) {
+        if feedResponse == nil {
+            feedResponse = nextBatch
+        } else {
+            feedResponse?.items.append(contentsOf: nextBatch.items)
+            
+            var profiles = nextBatch.profiles
+            if let oldProfiles = feedResponse?.profiles {
+                
+                let oldProfilesFiltered = oldProfiles.filter({ oldProfile -> Bool in
+                    !nextBatch.profiles.contains(where: { $0.id == oldProfile.id })
+                })
+                profiles.append(contentsOf: oldProfilesFiltered)
+                
+            }
+            feedResponse?.profiles = profiles
+            
+            var groups = nextBatch.groups
+            if let oldGroups = feedResponse?.groups {
+                
+                let oldGroupsFiltered = oldGroups.filter({ oldGroup -> Bool in
+                    !nextBatch.groups.contains(where: {$0.id == oldGroup.id })
+                })
+                groups.append(contentsOf: oldGroupsFiltered)
+                
+            }
+            feedResponse?.groups = groups
+            
+            feedResponse?.nextFrom = nextBatch.nextFrom
+            
+        }
+    }
+    
     
 }

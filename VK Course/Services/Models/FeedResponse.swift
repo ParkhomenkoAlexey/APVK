@@ -13,9 +13,10 @@ struct FeedResponseWrapped: Decodable {
 }
 
 struct FeedResponse: Decodable {
-    let items: [FeedItem]
-    let profiles: [Profile]
-    let groups: [Group]
+    var items: [FeedItem]
+    var profiles: [Profile]
+    var groups: [Group]
+    var nextFrom: String?
 }
 
 struct FeedItem: Decodable {
@@ -41,12 +42,45 @@ struct Attachment: Decodable {
     let photo: Photo?
 }
 
+//struct Photo: Decodable {
+//    let srcBig: String
+//    let height: Float
+//    let width: Float
+//}
+
 struct Photo: Decodable {
-    let srcBig: String
-    let height: Float
-    let width: Float
+
+    let sizes: [PhotoSize]
+
+    var srcBig: String {
+        return getPropperSize().url
+    }
+
+    var height: Float {
+        return getPropperSize().height
+    }
+
+    var width: Float {
+        return getPropperSize().width
+    }
+
+    private func getPropperSize() -> PhotoSize {
+        if let sizeX = sizes.first(where: { $0.type == "x"}) {
+            return sizeX
+        } else if let fallbackSize = sizes.last {
+            return fallbackSize
+        } else {
+            return PhotoSize(type: "wrong image", url: "wrong image", width: 0, height: 0)
+        }
+    }
 }
 
+struct PhotoSize: Decodable {
+    let type: String
+    let url: String
+    let width: Float
+    let height: Float
+}
 
 
 protocol ProfileRepresentable {
@@ -55,26 +89,23 @@ protocol ProfileRepresentable {
     var photo: String { get }
 }
 
+
 struct Profile: Decodable, ProfileRepresentable {
-    
-    let uid: Int
+    let id: Int
     let firstName: String
     let lastName: String
-    let photoMediumRec: String
+    let photo100: String
     
-    var id: Int { return uid }
     var name: String { return firstName + " " + lastName }
-    var photo: String { return photoMediumRec}
+    var photo: String { return photo100 }
 }
 
 struct Group: Decodable, ProfileRepresentable {
+    let id: Int
+    let name: String
+    let photo100: String
     
-    let gid: Int
-    var name: String
-    let photoMedium: String
-    
-    var id: Int { return gid}
-    var photo: String { return photoMedium }
-    
-    
+    var photo: String { return photo100 }
 }
+
+
