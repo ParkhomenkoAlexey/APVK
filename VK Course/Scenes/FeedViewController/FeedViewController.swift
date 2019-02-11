@@ -28,24 +28,35 @@ class FeedViewController: UIViewController, FeedDisplayLogic, UITableViewDelegat
         return refreshControl
     }()
     
-    // в оригинале private
-    @IBOutlet weak var table: UITableView!
+    @IBOutlet private var table: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         assemble()
         setupTopBars()
-        //table.register(UINib(nibName: "FeedCell", bundle: nil), forCellReuseIdentifier: FeedCell.reuseId)
-        table.register(FeedCodeCell.self, forCellReuseIdentifier: FeedCodeCell.reuseId)
-        table.separatorStyle = .none
-        table.backgroundColor = .clear
-        view.backgroundColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+        setupTable()
         
         interactor.getUser()
         // достаем всю инфу, она уже вся в ячейках
         interactor.getFeed()
         
+    
+    }
+    
+    private func setupTable() {
+        let topInset: CGFloat = 8
+        if #available(iOS 11, *) {
+            table.contentInset.top = topInset
+        } else {
+            table.contentInset.top = 64 + topInset
+        }
+        
+        table.separatorStyle = .none
+        table.backgroundColor = .clear
+        view.backgroundColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        
+        table.register(FeedCodeCell.self, forCellReuseIdentifier: FeedCodeCell.reuseId)
         table.addSubview(refreshControl)
         table.tableFooterView = footerView
     }

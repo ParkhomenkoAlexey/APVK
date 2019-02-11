@@ -85,6 +85,7 @@ final class FeedCodeCell: UITableViewCell {
     }()
     
     // нужно ли - imageView.translatesAutoresizingMaskIntoConstraints = false ???
+    // если работаем с сonstraints то всегда нужно
     let photoImageView: WebImageView = {
         let imageView = WebImageView()
         //imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -265,10 +266,7 @@ final class FeedCodeCell: UITableViewCell {
         countersPlaceholder.frame = viewModel.sizes.counterPlaceholderFrame
         moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
         
-        
-        
         // если у нас имеются фотографии в после
-        
         if let photoAttachment = viewModel.photoAttachements.first, viewModel.photoAttachements.count == 1 {
             photoImageView.isHidden = false
             galleryCollectionView.isHidden = true
@@ -287,8 +285,6 @@ final class FeedCodeCell: UITableViewCell {
         }
     }
     
-    
-    
     private func overlayFourthLayerOnСountersPlaceholderViews() {
         likesView.addSubview(likesImage)
         likesImage.addSubview(likesLabel)
@@ -305,11 +301,22 @@ final class FeedCodeCell: UITableViewCell {
         helpInFourthLayer(imageView: likesImage, label: likesLabel, view: likesView)
         helpInFourthLayer(imageView: commentsImage, label: commentsLabel, view: commentsView)
         helpInFourthLayer(imageView: sharesImage, label: sharesLabel, view: sharesView)
-        helpInFourthLayer(imageView: viewsImage, label: viewsLabel, view: viewsView)
+        //helpInFourthLayer(imageView: viewsImage, label: viewsLabel, view: viewsView) // содержимое viewsView не может использовать данные constraints потому что
+        // viewsLabel может достигать 6 чисел
         
+        // viewsLabel constraints
+        viewsLabel.centerYAnchor.constraint(equalTo: viewsView.centerYAnchor).isActive = true
+        viewsLabel.trailingAnchor.constraint(equalTo: viewsView.trailingAnchor, constant: -14).isActive = true
+        
+        // viewsImage constraints
+        viewsImage.centerYAnchor.constraint(equalTo: viewsLabel.centerYAnchor).isActive = true
+        viewsImage.trailingAnchor.constraint(equalTo: viewsLabel.leadingAnchor, constant: -2).isActive = true
+        viewsImage.heightAnchor.constraint(equalToConstant: Constants.countersPlaceholderViewsIconsSize).isActive = true
+        viewsImage.widthAnchor.constraint(equalToConstant: Constants.countersPlaceholderViewsIconsSize).isActive = true
     }
     
     private func helpInFourthLayer(imageView: UIImageView, label: UILabel, view: UIView) {
+        
         // imageView constraints
         imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
@@ -351,7 +358,7 @@ final class FeedCodeCell: UITableViewCell {
         viewsView.trailingAnchor.constraint(equalTo: countersPlaceholder.trailingAnchor).isActive = true
         viewsView.topAnchor.constraint(equalTo: countersPlaceholder.topAnchor).isActive = true
         viewsView.heightAnchor.constraint(equalToConstant: Constants.countersPlaceholderViewHeight).isActive = true
-        viewsView.widthAnchor.constraint(equalToConstant: Constants.countersPlaceholderViewWidth).isActive = true
+        viewsView.widthAnchor.constraint(equalToConstant: Constants.countersPlaceholderViewWidth + 20).isActive = true
     }
     
     private func overlayThirdLayerOnTopView() {
@@ -392,7 +399,7 @@ final class FeedCodeCell: UITableViewCell {
         topView.heightAnchor.constraint(equalToConstant: Constants.topViewHeight).isActive = true
         
         // postLabel constraints
-        // не нужно
+        // не нужно т.к. размеры задаются динамически
 
         // photoImageView constraints
         // не нужно

@@ -49,8 +49,6 @@ final class FeedInteractor: FeedBusinessLogic {
         
         networkService.getFeed(completion: { [weak self] feedResponse in
             // если достали то 
-            //self?.presenter.presentFeed(feedResponse)
-            
             self?.feedResponse = feedResponse
             self?.presentFeed()
             }, failure: {

@@ -20,7 +20,7 @@ class UpdateRowLayout: UICollectionViewLayout {
   weak var delegate: UpdateRowLayoutDelegate!
   
   // 2
-    static var numberOfRows: CGFloat = 1
+    static var numberOfRows: CGFloat = 2
   fileprivate var cellPadding: CGFloat = 8
   
   // 3
@@ -44,8 +44,8 @@ class UpdateRowLayout: UICollectionViewLayout {
   }
     
   override func prepare() {
-    contentWidth = 0
-    cache = []
+    contentWidth = 0 // если уберем то пролистывать фотки будем до бесконечности (почти, зависит от предыдущего collectionView), хотя там уже будет пусто
+    cache = [] // cache.isEmpty == true просто нужно убрать
     
     // 1
     guard cache.isEmpty == true, let collectionView = collectionView else { return }

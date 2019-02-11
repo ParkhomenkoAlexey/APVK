@@ -110,19 +110,6 @@ final class FeedPresenter: FeedPresenterLogic {
         return String(counter)
     }
     
-//    private func photoAttachment(feedItem: FeedItem) -> Feed.ViewModel.FeedCellPhotoAttachment? {
-//        // .compactMap - Возвращает массив, содержащий ненулевые результаты вызова данного преобразования для каждого элемента этой последовательности.
-//        // заполняем массив фотографий из поста
-//        guard let photos = feedItem.attachments?.compactMap({ (attachment) in
-//            attachment.photo
-//        }), let firstPhoto = photos.first else {
-//            return nil
-//        }
-//
-//        return Feed.ViewModel.FeedCellPhotoAttachment.init(photoUrlString: firstPhoto.srcBig,
-//                                                           width: firstPhoto.width,
-//                                                           height: firstPhoto.height)
-//    }
     
     private func photoAttachments(feedItem: FeedItem) -> [Feed.ViewModel.FeedCellPhotoAttachment] {
         guard let attachments = feedItem.attachments else { return [] }
