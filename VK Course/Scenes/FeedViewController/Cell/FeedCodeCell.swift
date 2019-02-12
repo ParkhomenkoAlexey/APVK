@@ -76,12 +76,31 @@ final class FeedCodeCell: UITableViewCell {
     
     private var galleryCollectionView = GalleryCollectionView()
     
-    let postLabel: UILabel = {
-       let label = UILabel()
+//    let postLabel: UILabel = {
+//       let label = UILabel()
+//        //label.translatesAutoresizingMaskIntoConstraints = false
+//        label.numberOfLines = 0
+//        label.font = Constants.postLabelFont
+//        label.backgroundColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+//        return label
+//    }()
+    
+    let postLabel: UITextView = {
+        let textView = UITextView()
         //label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        label.font = Constants.postLabelFont
-        return label
+        //label.numberOfLines = 0
+        textView.font = Constants.postLabelFont
+        textView.isScrollEnabled = false
+        //textView.dataDetectorTypes = UIDataDetectorTypes.link
+textView.dataDetectorTypes = UIDataDetectorTypes.all
+        textView.isUserInteractionEnabled = true
+        textView.isSelectable = true
+        textView.isEditable = false
+        //textView.textContainer.lineFragmentPadding = 0
+        print(textView.textContainer.lineFragmentPadding)
+        let padding = textView.textContainer.lineFragmentPadding
+        textView.textContainerInset = UIEdgeInsets.init(top: 0, left: -padding, bottom: 0, right: -padding)
+        return textView
     }()
     
     // нужно ли - imageView.translatesAutoresizingMaskIntoConstraints = false ???
