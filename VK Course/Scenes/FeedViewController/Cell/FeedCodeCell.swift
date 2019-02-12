@@ -92,7 +92,7 @@ final class FeedCodeCell: UITableViewCell {
         textView.font = Constants.postLabelFont
         textView.isScrollEnabled = false
         //textView.dataDetectorTypes = UIDataDetectorTypes.link
-textView.dataDetectorTypes = UIDataDetectorTypes.all
+        textView.dataDetectorTypes = UIDataDetectorTypes.all
         textView.isUserInteractionEnabled = true
         textView.isSelectable = true
         textView.isEditable = false
@@ -107,6 +107,7 @@ textView.dataDetectorTypes = UIDataDetectorTypes.all
     // если работаем с сonstraints то всегда нужно
     let photoImageView: WebImageView = {
         let imageView = WebImageView()
+        imageView.backgroundColor = #colorLiteral(red: 0.8882605433, green: 0.8981810212, blue: 0.9109882712, alpha: 1)
         //imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
