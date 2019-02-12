@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F01A921D2212A4D7008C00DD /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01A921C2212A4D7008C00DD /* GradientView.swift */; };
 		F04C2A8021F9DDEA00E1B1C8 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */; };
 		F04C2A8921FA0FF200E1B1C8 /* String + Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */; };
 		F04C2A8B21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F01A921C2212A4D7008C00DD /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Helpers.swift"; sourceTree = "<group>"; };
 		F04C2A8A21FA101B00E1B1C8 /* FeedCellLayoutCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellLayoutCalculator.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				F04C2A8821FA0FF200E1B1C8 /* String + Helpers.swift */,
 				F04C2A7F21F9DDEA00E1B1C8 /* WebImageView.swift */,
 				F0C843D921FC518800AAB79E /* Extention.swift */,
+				F01A921C2212A4D7008C00DD /* GradientView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				F0DA73F021F795C000BA4CCD /* FeedViewController.swift in Sources */,
 				F04C2A8921FA0FF200E1B1C8 /* String + Helpers.swift in Sources */,
 				F0DA73E521F7891800BA4CCD /* AuthService.swift in Sources */,
+				F01A921D2212A4D7008C00DD /* GradientView.swift in Sources */,
 				F0C843DA21FC518800AAB79E /* Extention.swift in Sources */,
 				F0DA73F821F7A37F00BA4CCD /* API.swift in Sources */,
 				F0C843D821FC511E00AAB79E /* FeedCodeCell.swift in Sources */,

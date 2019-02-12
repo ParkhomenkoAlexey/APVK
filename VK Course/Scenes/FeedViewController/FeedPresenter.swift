@@ -107,7 +107,13 @@ final class FeedPresenter: FeedPresenterLogic {
     
     private func formattedCounter(_ counter: Int?) -> String? {
         guard let counter = counter, counter > 0 else { return nil }
-        return String(counter)
+        var counterString = String(counter)
+        if 4...6 ~= counterString.count {
+            counterString = String(counterString.dropLast(3)) + "K"
+        } else if counterString.count > 6 {
+            counterString = String(counterString.dropLast(6)) + "M"
+        }
+        return counterString
     }
     
     

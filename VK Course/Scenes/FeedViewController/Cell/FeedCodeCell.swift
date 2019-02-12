@@ -262,7 +262,6 @@ final class FeedCodeCell: UITableViewCell {
         // кроме заполнения информацией ячеек мы также
         // устанавливаем размеры объектов каждой ячейки
         postLabel.frame = viewModel.sizes.postLabelFrame
-        //photoImageView.frame = viewModel.sizes.attachmentFrame
         countersPlaceholder.frame = viewModel.sizes.counterPlaceholderFrame
         moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
         
@@ -358,7 +357,7 @@ final class FeedCodeCell: UITableViewCell {
         viewsView.trailingAnchor.constraint(equalTo: countersPlaceholder.trailingAnchor).isActive = true
         viewsView.topAnchor.constraint(equalTo: countersPlaceholder.topAnchor).isActive = true
         viewsView.heightAnchor.constraint(equalToConstant: Constants.countersPlaceholderViewHeight).isActive = true
-        viewsView.widthAnchor.constraint(equalToConstant: Constants.countersPlaceholderViewWidth + 20).isActive = true
+        viewsView.widthAnchor.constraint(equalToConstant: Constants.countersPlaceholderViewWidth).isActive = true
     }
     
     private func overlayThirdLayerOnTopView() {
