@@ -97,7 +97,6 @@ final class FeedCodeCell: UITableViewCell {
         textView.isSelectable = true
         textView.isEditable = false
         //textView.textContainer.lineFragmentPadding = 0
-        print(textView.textContainer.lineFragmentPadding)
         let padding = textView.textContainer.lineFragmentPadding
         textView.textContainerInset = UIEdgeInsets.init(top: 0, left: -padding, bottom: 0, right: -padding)
         return textView

@@ -20,7 +20,7 @@ class UpdateRowLayout: UICollectionViewLayout {
   weak var delegate: UpdateRowLayoutDelegate!
   
   // 2
-    static var numberOfRows: CGFloat = 2
+    static var numberOfRows: CGFloat = 1
   fileprivate var cellPadding: CGFloat = 8
   
   // 3

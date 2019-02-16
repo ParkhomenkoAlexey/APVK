@@ -30,7 +30,7 @@ final class NetworkService {
     } // getUser
     
     
-    // эта функция универсальна в плане того, что
+    // эта функция универсальна в плане того, что это
     // функция, которая вытаскивает из инета всю информацию о постах в формате JSON
     func getFeed(nextBatchFrom: String? = nil, completion: @escaping (FeedResponse) -> Void, failure: @escaping () -> Void) {
         
